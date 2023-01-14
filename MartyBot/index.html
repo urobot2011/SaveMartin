@@ -16,22 +16,29 @@ MartyBot
 <script src="https://urobot2011.github.io/SaveMartin/MartyBot/chessboardjs/js/chessboard-1.0.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.2/chess.js" integrity="sha384-s3XgLpvmHyscVpijnseAmye819Ee3yaGa8NxstkJVyA6nuDFjt59u1QvuEl/mecz" crossorigin="anonymous"></script>
 <script>
-var board = null
-var game = new Chess()
+var board;
+var game = new Chess();
 
 function onDragStart (source, piece, position, orientation) {
-  if (game.game_over()) return false
-  if (piece.search(/^b/) !== -1) return false
+  if (game.game_over()) return false;
+  if (piece.search(/^b/) !== -1) return false;
 }
 
 function makeRandomMove () {
-  var possibleMoves = game.moves()
+  var possibleMoves = game.moves();
 
-  if (possibleMoves.length === 0) return
+  if (possibleMoves.length === 0) return;
 
-  var randomIdx = Math.floor(Math.random() * possibleMoves.length)
-  game.move(possibleMoves[randomIdx])
-  board.position(game.fen())
+  var randomIdx = Math.floor(Math.random() * possibleMoves.length);
+  var moves = possibleMoves[randomIdx];
+
+  for (var i = 0; i < possibleMoves.length; i++) {
+    if(possibleMoves[i].includes("x")){
+      moves = possibleMoves[i];
+    }
+  }
+  game.move(moves);
+  board.position(game.fen());
 }
 
 function onDrop (source, target) {
