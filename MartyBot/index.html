@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8"/>
   <title>MartyBot</title>
-  <link rel="stylesheet" href="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.css" integrity="sha384-q94+BZtLrkL1/ohfjR8c6L+A6qzNH9R2hBLwyoAfu3i/WCvQjzL2RQJ3uNHDISdU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://urobot2011.github.io/SaveMartin/MartyBot/chessboardjs/chessboard-1.0.0.min.css">
 </head>
 <body>
 <p>
@@ -13,28 +13,20 @@ MartyBot
 
 <div id="myBoard" style="width: 400px"></div>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script src="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.js" integrity="sha384-8Vi8VHwn3vjQ9eUHUxex3JSN/NFqUg3QbPyX8kWyb93+8AC/pPWTzj+nHtbC5bxD" crossorigin="anonymous"></script>
+<script src="https://urobot2011.github.io/SaveMartin/MartyBot/chessboardjs/chessboard-1.0.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.2/chess.js" integrity="sha384-s3XgLpvmHyscVpijnseAmye819Ee3yaGa8NxstkJVyA6nuDFjt59u1QvuEl/mecz" crossorigin="anonymous"></script>
 <script>
-// --- Begin Example JS --------------------------------------------------------
-// NOTE: this example uses the chess.js library:
-// https://github.com/jhlywa/chess.js
-
 var board = null
 var game = new Chess()
 
 function onDragStart (source, piece, position, orientation) {
-  // do not pick up pieces if the game is over
   if (game.game_over()) return false
-
-  // only pick up pieces for White
   if (piece.search(/^b/) !== -1) return false
 }
 
 function makeRandomMove () {
   var possibleMoves = game.moves()
 
-  // game over
   if (possibleMoves.length === 0) return
 
   var randomIdx = Math.floor(Math.random() * possibleMoves.length)
@@ -43,22 +35,17 @@ function makeRandomMove () {
 }
 
 function onDrop (source, target) {
-  // see if the move is legal
   var move = game.move({
     from: source,
     to: target,
-    promotion: 'q' // NOTE: always promote to a queen for example simplicity
+    promotion: 'q'
   })
-
-  // illegal move
+  
   if (move === null) return 'snapback'
-
-  // make random legal move for black
   window.setTimeout(makeRandomMove, 250)
 }
 
-// update the board position after the piece snap
-// for castling, en passant, pawn promotion
+
 function onSnapEnd () {
   board.position(game.fen())
 }
