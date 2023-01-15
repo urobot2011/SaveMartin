@@ -47,12 +47,12 @@ $martycolor.change(function(){
 
 $start.click(function() {
   board.position("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
-  game = new Chess();
+  board.orientation('white');
   $fen.html("");
   $pgn.html("");
   if(martycolor == "w"){
-    board.position("RNBKQBNR/PPPPPPPP/8/8/8/8/pppppppp/rnbkqbnr w - - 0 1");
-    game = new Chess();
+    board.position("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
+    board.orientation('black');
     window.setTimeout(makeRandomMove, 250);
     updateStatus();
   }
