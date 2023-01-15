@@ -25,6 +25,9 @@ function onDragStart (source, piece, position, orientation) {
 }
 
 function makeRandomMove () {
+  if(game.isCheckmate()) alert("Checkmate!");
+  if(game.isDraw()) alert("Draw!");
+  
   var possibleMoves = game.moves();
 
   if (possibleMoves.length === 0) return;
@@ -46,22 +49,22 @@ function onDrop (source, target) {
     from: source,
     to: target,
     promotion: 'q'
-  })
+  });
   
-  if (move === null) return 'snapback'
-  window.setTimeout(makeRandomMove, 250)
+  if (move === null) return 'snapback';
+  window.setTimeout(makeRandomMove, 250);
 }
 
 
 function onSnapEnd () {
-  board.position(game.fen())
+  board.position(game.fen());
 }
 
 function pieceTheme (piece) {
   if (piece.search(/w/) !== -1) {
-    return 'https://urobot2011.github.io/SaveMartin/MartyBot/chessboardjs/img/chesspieces/wikipedia/' + piece + '.png'
+    return 'https://urobot2011.github.io/SaveMartin/MartyBot/chessboardjs/img/chesspieces/wikipedia/' + piece + '.png';
   }
-  return 'https://urobot2011.github.io/SaveMartin/MartyBot/chessboardjs/img/chesspieces/wikipedia/' + piece + '.png'
+  return 'https://urobot2011.github.io/SaveMartin/MartyBot/chessboardjs/img/chesspieces/wikipedia/' + piece + '.png';
 }
 
 var config = {
@@ -71,8 +74,8 @@ var config = {
   onDragStart: onDragStart,
   onDrop: onDrop,
   onSnapEnd: onSnapEnd
-}
-board = Chessboard('myBoard', config)
+};
+board = Chessboard('myBoard', config);
 </script>
 </body>
 </html>
