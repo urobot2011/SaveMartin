@@ -51,6 +51,10 @@ function makeRandomMove () {
 }
 
 function updateStatus() {
+  var moveColor = 'White';
+  if (game.turn() === 'b') {
+    moveColor = 'Black';
+  }
   if (game.in_checkmate()) {
     status = 'Game over, ' + moveColor + ' is in checkmate.';
   } else if (game.in_draw()) {
