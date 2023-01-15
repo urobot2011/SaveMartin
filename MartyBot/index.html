@@ -13,12 +13,12 @@
 MartyBot
 </p>
 <div id="myBoard" style="width: 400px"></div>
-<!--<div class="mb-3">
+<div class="mb-3">
   <label for="wn" class="form-label">백 이름</label>
   <input type="text" class="form-control" id="wn" placeholder="이름(아이디)" value="seoha">
   <!--<label for="bn" class="form-label">흑 이름</label>
-  <input type="text" class="form-control" id="bn" placeholder="name@example.com">-/->
-</div>-->
+  <input type="text" class="form-control" id="bn" placeholder="name@example.com">-->
+</div>
 <select class="form-select" aria-label="마티의 색" id = "martycolor">
   <option selected value="b">흑</option>
   <option value="w">백</option>
@@ -39,6 +39,7 @@ var game = new Chess();
 var $start = $('#start');
 var $fen = $('#fen');
 var $pgn = $('#pgn');
+var $wn = $('#wn');
 var $martycolor = $('#martycolor');
 var martycolor = "b";
 $martycolor.change(function(){
@@ -50,12 +51,14 @@ $start.click(function() {
   board.orientation('white');
   $fen.html("");
   $pgn.html("");
+  chess.header('White', $wn.val());
+  chess.header('Black', 'MartyBot L1');
   if(martycolor == "w"){
     board.position("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
     board.orientation('black');
     window.setTimeout(makeRandomMove, 250);
-    updateStatus();
   }
+  updateStatus();
 });
   
 function onDragStart (source, piece, position, orientation) {
