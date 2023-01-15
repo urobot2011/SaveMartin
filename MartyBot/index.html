@@ -12,12 +12,18 @@ MartyBot
 </p>
 
 <div id="myBoard" style="width: 400px"></div>
+<label>FEN:</label>
+<div id="fen"></div>
+<label>PGN:</label>
+<div id="pgn"></div>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://urobot2011.github.io/SaveMartin/MartyBot/chessboardjs/js/chessboard-1.0.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.2/chess.js" integrity="sha384-s3XgLpvmHyscVpijnseAmye819Ee3yaGa8NxstkJVyA6nuDFjt59u1QvuEl/mecz" crossorigin="anonymous"></script>
 <script>
 var board;
 var game = new Chess();
+var $fen = $('#fen');
+var $pgn = $('#pgn');
 
 function onDragStart (source, piece, position, orientation) {
   if (game.game_over()) return false;
@@ -44,6 +50,21 @@ function makeRandomMove () {
   board.position(game.fen());
 }
 
+function updateStatus() {
+  if (game.in_checkmate()) {
+    status = 'Game over, ' + moveColor + ' is in checkmate.';
+  } else if (game.in_draw()) {
+    status = 'Game over, drawn position';
+  } else {
+    status = moveColor + ' to move';
+    if (game.in_check()) {
+      status += ', ' + moveColor + ' is in check';
+    }
+  }
+  $fen.html(game.fen());
+  $pgn.html(game.pgn());
+}
+  
 function onDrop (source, target) {
   var move = game.move({
     from: source,
@@ -53,6 +74,7 @@ function onDrop (source, target) {
   
   if (move === null) return 'snapback';
   window.setTimeout(makeRandomMove, 250);
+  updateStatus();
 }
 
 
