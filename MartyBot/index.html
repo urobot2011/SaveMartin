@@ -42,11 +42,13 @@ var $pgn = $('#pgn');
 var $wn = $('#wn');
 var $martycolor = $('#martycolor');
 var martycolor = "b";
+var start_bool = 0;
 $martycolor.change(function(){
   martycolor = $(this).val();
 });
 
 $start.click(function() {
+  start_bool = 1;
   board.position("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
   board.orientation('white');
   $fen.html("");
@@ -87,6 +89,10 @@ function makeRandomMove () {
 }
 
 function updateStatus() {
+  if(start_bool == 0){
+    game.header('White', $wn.val());
+    game.header('Black', 'MartyBot L1');
+  }
   var moveColor = 'White';
   if (game.turn() === 'b') {
     moveColor = 'Black';
