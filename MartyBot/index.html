@@ -51,8 +51,8 @@ $start.click(function() {
   board.orientation('white');
   $fen.html("");
   $pgn.html("");
-  chess.header('White', $wn.val());
-  chess.header('Black', 'MartyBot L1');
+  game.header('White', $wn.val());
+  game.header('Black', 'MartyBot L1');
   if(martycolor == "w"){
     board.position("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
     board.orientation('black');
