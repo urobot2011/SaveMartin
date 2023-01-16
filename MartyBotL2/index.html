@@ -59,10 +59,10 @@ $start.click(function() {
   $pgn.html("");
   if(martycolor == "b"){
     game.header('White', $wn.val());
-    game.header('Black', 'MartyBot L1');
+    game.header('Black', 'MartyBot L2');
   } else if(martycolor == "w"){
     game.header('Black', $wn.val());
-    game.header('White', 'MartyBot L1');
+    game.header('White', 'MartyBot L2');
   }
   if(martycolor == "w"){
     board.position("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
@@ -183,10 +183,10 @@ function updateStatus() {
   if(start_bool == 0){
     if(martycolor == "b"){
       game.header('White', $wn.val());
-      game.header('Black', 'MartyBot L1');
+      game.header('Black', 'MartyBot L2');
     } else if(martycolor == "w"){
       game.header('Black', $wn.val());
-      game.header('White', 'MartyBot L1');
+      game.header('White', 'MartyBot L2');
     }
   }
   var moveColor = 'White';
