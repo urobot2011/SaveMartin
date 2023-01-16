@@ -1,0 +1,246 @@
+
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MartyBot L2</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://urobot2011.github.io/SaveMartin/MartyBot/chessboardjs/css/chessboard-1.0.0.min.css">
+</head>
+<body>
+<p>
+MartyBot L2
+</p>
+<div id="myBoard" style="width: 400px"></div>
+<div class="mb-3">
+  <label for="wn" class="form-label">백 이름</label>
+  <input type="text" class="form-control" id="wn" placeholder="이름(아이디)" value="seoha">
+  <!--<label for="bn" class="form-label">흑 이름</label>
+  <input type="text" class="form-control" id="bn" placeholder="name@example.com">-->
+</div>
+<div class="mb-3">
+<label for="martycolor" class="form-label">봇의 색</label>
+<select class="form-select" aria-label="봇의 색" id = "martycolor">
+  <option selected value="b">흑</option>
+  <option value="w">백</option>
+</select>
+</div>
+<div class="mb-3">
+<button type="button" class="btn btn-primary" id="start">start</button>
+</div>
+<label>FEN:</label>
+<div id="fen"></div>
+<label>PGN:</label>
+<div id="pgn"></div>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://urobot2011.github.io/SaveMartin/MartyBot/chessboardjs/js/chessboard-1.0.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.2/chess.js" integrity="sha384-s3XgLpvmHyscVpijnseAmye819Ee3yaGa8NxstkJVyA6nuDFjt59u1QvuEl/mecz" crossorigin="anonymous"></script>
+<script>
+var board;
+var game = new Chess();
+var $start = $('#start');
+var $fen = $('#fen');
+var $pgn = $('#pgn');
+var $wn = $('#wn');
+var $martycolor = $('#martycolor');
+var martycolor = "b";
+var start_bool = 0;
+$martycolor.change(function(){
+  martycolor = $(this).val();
+});
+
+$start.click(function() {
+  start_bool = 1;
+  board.position("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
+  board.orientation('white');
+  $fen.html("");
+  $pgn.html("");
+  if(martycolor == "b"){
+    game.header('White', $wn.val());
+    game.header('Black', 'MartyBot L1');
+  } else if(martycolor == "w"){
+    game.header('Black', $wn.val());
+    game.header('White', 'MartyBot L1');
+  }
+  if(martycolor == "w"){
+    board.position("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
+    board.orientation('black');
+    window.setTimeout(makeRandomMove, 250);
+  }
+  updateStatus();
+});
+
+function onDragStart (source, piece, position, orientation) {
+  if (game.game_over()) return false;
+  if (piece.search(/^{martycolor}/) !== -1) return false;
+}
+//https://github.com/tsle/chess/blob/master/js/negamax.js
+function negaMax(chess, depth, player) {
+    if (player != chess.turn()) return "";
+    var op = (player == 'b') ? 'w' : 'b';
+    var best_move = null, max = -100000;
+    var moves = chess.moves({ verbose: true });
+    if (moves.length == 0) return null;
+    for(var i=0; i < moves.length; i++) {
+        var curPlayer = (player == 'b') ? 'w' : 'b';
+	if (inHistory(chess, moves[i])) continue;
+	if (!chess.move(moves[i])) continue;
+	score = -negaHelper(chess, depth - 1, curPlayer, op);
+	if (score > max) {
+	    max = score;
+	    best_move = moves[i];
+	}
+	chess.undo();
+    }
+    return best_move;
+}
+
+function negaHelper(chess, depth, curPlayer, player) {
+    if (depth == 0) return negaEval(chess, player);
+    var moves = chess.moves({ verbose: true });
+    var max = -100000;
+    if (moves.length == 0) return max;
+    for (var i=0; i < moves.length; i++) {
+	if (!chess.move(moves[i])) continue;
+	cur_player = (curPlayer == 'b') ? 'w' : 'b';
+	score = -negaHelper(chess, depth - 1, cur_player, player);
+	if ( score > max ) 
+	    max = score;
+	chess.undo();
+    }
+    return max;
+}
+
+function inHistory(chess, move) {
+    var history = chess.history({ verbose: true });
+    var size = history.length;
+    if (size > 5) size = 5;
+    for(var i=0; i < history.length; i++) {
+	if (history[i]['color'] == move['color'] &&
+	    history[i]['from'] == move['from'] && 
+	    history[i]['to'] == move['to'] &&
+	    history[i]['piece'] == move['piece'] &&
+	    move['flags'] == 'n') {
+	    console.log('Repeated');
+	    return true;
+	}
+    }
+    return false;
+}
+
+function eval(chess, player) {
+    var valsW = { "p":1, "r":4, "n":2, "b":3, "q":7, "k":5 };
+    var valsB = { "P":1, "R":4, "N":2, "B":3, "Q":7, "K":5 };
+
+    var score = 0;
+    fen = chess.fen();
+    var i = 0;
+    while(i < fen.length) {
+        if (player == 'w') { // if white                                                         
+	    if (fen.charAt(i) in valsW) {
+                score += valsW[fen.charAt(i)];
+            }
+        } else { // if black                                                                     
+	    if (fen.charAt(i) in valsB) {
+                score += valsB[fen.charAt(i)];
+            }
+        }
+        i++;
+    }
+    return score;
+}
+
+function negaEval(chess, player) {
+    if (player == 'w') {
+        return eval(chess, 'w') - eval(chess, 'b');
+    } else {
+        return eval(chess, 'b') - eval(chess, 'w');
+    }
+}
+function makeMove () {
+  //if(game.isCheckmate()) alert("Checkmate!");
+  //if(game.isDraw()) alert("Draw!");
+  
+  var possibleMoves = game.moves();
+
+  if (possibleMoves.length === 0) return;
+
+  var possibleMoves = game.moves();
+
+  if (game.game_over() === true ||
+    game.in_draw() === true ||
+    possibleMoves.length === 0) return;
+
+  game.move(negaMax(game, 2, game.turn()));
+  board.position(game.fen());
+
+  board.position(game.fen());
+}
+
+function updateStatus() {
+  if(start_bool == 0){
+    if(martycolor == "b"){
+      game.header('White', $wn.val());
+      game.header('Black', 'MartyBot L1');
+    } else if(martycolor == "w"){
+      game.header('Black', $wn.val());
+      game.header('White', 'MartyBot L1');
+    }
+  }
+  var moveColor = 'White';
+  if (game.turn() === 'b') {
+    moveColor = 'Black';
+  }
+  if (game.in_checkmate()) {
+    status = 'Game over, ' + moveColor + ' is in checkmate.';
+  } else if (game.in_draw()) {
+    status = 'Game over, drawn position';
+  } else {
+    status = moveColor + ' to move';
+    if (game.in_check()) {
+      status += ', ' + moveColor + ' is in check';
+    }
+  }
+  $fen.html(game.fen());
+  $pgn.html(game.pgn());
+}
+  
+function onDrop (source, target) {
+  var move = game.move({
+    from: source,
+    to: target,
+    promotion: 'q'
+  });
+  
+  if (move === null) return 'snapback';
+  window.setTimeout(makeMove, 250);
+  updateStatus();
+}
+
+
+function onSnapEnd () {
+  board.position(game.fen());
+}
+
+function pieceTheme (piece) {
+  if (piece.search(/w/) !== -1) {
+    return 'https://urobot2011.github.io/SaveMartin/MartyBot/chessboardjs/img/chesspieces/wikipedia/' + piece + '.png';
+  }
+  return 'https://urobot2011.github.io/SaveMartin/MartyBot/chessboardjs/img/chesspieces/wikipedia/' + piece + '.png';
+}
+
+var config = {
+  pieceTheme: pieceTheme,
+  draggable: true,
+  position: 'start',
+  onDragStart: onDragStart,
+  onDrop: onDrop,
+  onSnapEnd: onSnapEnd
+};
+board = Chessboard('myBoard', config);
+</script>
+</body>
+</html>
