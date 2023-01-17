@@ -173,10 +173,9 @@ function makeMove () {
     game.in_draw() === true ||
     possibleMoves.length === 0) return;
 
-  game.move(negaMax(game, 2, game.turn()));
+  game.move(negaMax(game, (martycolor == "b" ? 2 : 3), game.turn()));
   board.position(game.fen());
-
-  board.position(game.fen());
+  updateStatus();
 }
 
 function updateStatus() {
@@ -216,7 +215,6 @@ function onDrop (source, target) {
   
   if (move === null) return 'snapback';
   window.setTimeout(makeMove, 250);
-  updateStatus();
 }
 
 
