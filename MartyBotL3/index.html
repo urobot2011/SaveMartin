@@ -1,0 +1,596 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MartyBot L3</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://urobot2011.github.io/SaveMartin/MartyBot/chessboardjs/css/chessboard-1.0.0.min.css">
+</head>
+<body>
+<p>
+MartyBot L3
+</p>
+<div id="myBoard" style="width: 400px"></div>
+<div class="card">
+  <div class="card-body">
+    <MartySay></MartySay>
+  </div>
+</div>
+<div class="mb-3">
+  <label for="wn" class="form-label">백 이름</label>
+  <input type="text" class="form-control" id="wn" placeholder="이름(아이디)" value="seoha">
+  <!--<label for="bn" class="form-label">흑 이름</label>
+  <input type="text" class="form-control" id="bn" placeholder="name@example.com">-->
+</div>
+<div class="mb-3">
+<label for="martycolor" class="form-label">봇의 색</label>
+<select class="form-select" aria-label="봇의 색" id = "martycolor">
+  <option selected value="b">흑</option>
+  <option value="w">백</option>
+</select>
+</div>
+<div class="mb-3">
+<button type="button" class="btn btn-primary" id="start">start</button>
+</div>
+<label>FEN:</label>
+<div id="fen"></div>
+<label>PGN:</label>
+<div id="pgn"></div>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://urobot2011.github.io/SaveMartin/MartyBot/chessboardjs/js/chessboard-1.0.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.2/chess.js" integrity="sha384-s3XgLpvmHyscVpijnseAmye819Ee3yaGa8NxstkJVyA6nuDFjt59u1QvuEl/mecz" crossorigin="anonymous"></script>
+<script>
+var board;
+var game = new Chess();
+var $start = $('#start');
+var $fen = $('#fen');
+var $pgn = $('#pgn');
+var $wn = $('#wn');
+var $martycolor = $('#martycolor');
+var martycolor = "b";
+var start_bool = 0;
+
+var chassvals = [1, 4, 2, 3, 8, 5];
+//  chassvals = [p, r, n, b, q, k];
+
+$martycolor.change(function(){
+  martycolor = $(this).val();
+});
+
+function MartySay(say) {
+  var $MartySay = $('MartySay');
+  $MartySay.html(say);
+}
+
+MartySay('Hello? I am Marty. Would you like to play with me?');
+
+$start.click(function() {
+  start_bool = 1;
+  board.position("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
+  board.orientation('white');
+  $fen.html("");
+  $pgn.html("");
+  if(martycolor == "b"){
+    game.header('White', $wn.val());
+    game.header('Black', 'MartyBot L3');
+  } else if(martycolor == "w"){
+    game.header('Black', $wn.val());
+    game.header('White', 'MartyBot L3');
+  }
+  if(martycolor == "w"){
+    board.position("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
+    board.orientation('black');
+    window.setTimeout(makeMove, 250);
+  }
+  updateStatus();
+});
+
+function onDragStart (source, piece, position, orientation) {
+  if (game.game_over()) return false;
+  if (piece.search(/^{martycolor}/) !== -1) return false;
+}
+
+/*function quiesce(alpha, beta) {
+  var stand_pat = evaluate();
+  if(stand_pat >= beta) {
+    return beta;
+  } else if (alpha < stand_pat) {
+    alpha = stand_pat;
+  }
+  while(true) {
+    makeCapture();
+    var score = -quiesce(-beta, -alpha);
+    chess.undo();
+    if(score >= beta){
+      return beta;
+	}
+    if(score > alpha){
+      alpha = score;
+	}
+  }
+  return alpha;
+}*/
+//https://zeyu2001.github.io/chess-ai/js/main.js
+var globalSum = 0;
+var positionCount;
+
+function minimax(game, depth, alpha, beta, isMaximizingPlayer, sum, color) {
+  positionCount++;
+  var children = game.moves({ verbose: true });
+
+  children.sort(function (a, b) {
+    return 0.5 - Math.random();
+  });
+
+  var currMove;
+  if (depth === 0 || children.length === 0) {
+    return [null, sum];
+  }
+
+  var maxValue = Number.NEGATIVE_INFINITY;
+  var minValue = Number.POSITIVE_INFINITY;
+  var bestMove;
+  for (var i = 0; i < children.length; i++) {
+    currMove = children[i];
+
+    var currPrettyMove = game.move(currMove);
+    var newSum = evaluateBoard(game, currPrettyMove, sum, color);
+    var [childBestMove, childValue] = minimax(
+      game,
+      depth - 1,
+      alpha,
+      beta,
+      !isMaximizingPlayer,
+      newSum,
+      color
+    );
+
+    game.undo();
+
+    if (isMaximizingPlayer) {
+      if (childValue > maxValue) {
+        maxValue = childValue;
+        bestMove = currPrettyMove;
+      }
+      if (childValue > alpha) {
+        alpha = childValue;
+      }
+    } else {
+      if (childValue < minValue) {
+        minValue = childValue;
+        bestMove = currPrettyMove;
+      }
+      if (childValue < beta) {
+        beta = childValue;
+      }
+    }
+
+    // Alpha-beta pruning
+    if (alpha >= beta) {
+      break;
+    }
+  }
+
+  if (isMaximizingPlayer) {
+    return [bestMove, maxValue];
+  } else {
+    return [bestMove, minValue];
+  }
+}
+/*
+ * Piece Square Tables, adapted from Sunfish.py:
+ * https://github.com/thomasahle/sunfish/blob/master/sunfish.py
+ */
+
+var weights = { p: 100, n: 280, b: 320, r: 479, q: 929, k: 60000, k_e: 60000 };
+var pst_w = {
+  p: [
+    [100, 100, 100, 100, 105, 100, 100, 100],
+    [78, 83, 86, 73, 102, 82, 85, 90],
+    [7, 29, 21, 44, 40, 31, 44, 7],
+    [-17, 16, -2, 15, 14, 0, 15, -13],
+    [-26, 3, 10, 9, 6, 1, 0, -23],
+    [-22, 9, 5, -11, -10, -2, 3, -19],
+    [-31, 8, -7, -37, -36, -14, 3, -31],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+  ],
+  n: [
+    [-66, -53, -75, -75, -10, -55, -58, -70],
+    [-3, -6, 100, -36, 4, 62, -4, -14],
+    [10, 67, 1, 74, 73, 27, 62, -2],
+    [24, 24, 45, 37, 33, 41, 25, 17],
+    [-1, 5, 31, 21, 22, 35, 2, 0],
+    [-18, 10, 13, 22, 18, 15, 11, -14],
+    [-23, -15, 2, 0, 2, 0, -23, -20],
+    [-74, -23, -26, -24, -19, -35, -22, -69],
+  ],
+  b: [
+    [-59, -78, -82, -76, -23, -107, -37, -50],
+    [-11, 20, 35, -42, -39, 31, 2, -22],
+    [-9, 39, -32, 41, 52, -10, 28, -14],
+    [25, 17, 20, 34, 26, 25, 15, 10],
+    [13, 10, 17, 23, 17, 16, 0, 7],
+    [14, 25, 24, 15, 8, 25, 20, 15],
+    [19, 20, 11, 6, 7, 6, 20, 16],
+    [-7, 2, -15, -12, -14, -15, -10, -10],
+  ],
+  r: [
+    [35, 29, 33, 4, 37, 33, 56, 50],
+    [55, 29, 56, 67, 55, 62, 34, 60],
+    [19, 35, 28, 33, 45, 27, 25, 15],
+    [0, 5, 16, 13, 18, -4, -9, -6],
+    [-28, -35, -16, -21, -13, -29, -46, -30],
+    [-42, -28, -42, -25, -25, -35, -26, -46],
+    [-53, -38, -31, -26, -29, -43, -44, -53],
+    [-30, -24, -18, 5, -2, -18, -31, -32],
+  ],
+  q: [
+    [6, 1, -8, -104, 69, 24, 88, 26],
+    [14, 32, 60, -10, 20, 76, 57, 24],
+    [-2, 43, 32, 60, 72, 63, 43, 2],
+    [1, -16, 22, 17, 25, 20, -13, -6],
+    [-14, -15, -2, -5, -1, -10, -20, -22],
+    [-30, -6, -13, -11, -16, -11, -16, -27],
+    [-36, -18, 0, -19, -15, -15, -21, -38],
+    [-39, -30, -31, -13, -31, -36, -34, -42],
+  ],
+  k: [
+    [4, 54, 47, -99, -99, 60, 83, -62],
+    [-32, 10, 55, 56, 56, 55, 10, 3],
+    [-62, 12, -57, 44, -67, 28, 37, -31],
+    [-55, 50, 11, -4, -19, 13, 0, -49],
+    [-55, -43, -52, -28, -51, -47, -8, -50],
+    [-47, -42, -43, -79, -64, -32, -29, -32],
+    [-4, 3, -14, -50, -57, -18, 13, 4],
+    [17, 30, -3, -14, 6, -1, 40, 18],
+  ],
+
+  // Endgame King Table
+  k_e: [
+    [-50, -40, -30, -20, -20, -30, -40, -50],
+    [-30, -20, -10, 0, 0, -10, -20, -30],
+    [-30, -10, 20, 30, 30, 20, -10, -30],
+    [-30, -10, 30, 40, 40, 30, -10, -30],
+    [-30, -10, 30, 40, 40, 30, -10, -30],
+    [-30, -10, 20, 30, 30, 20, -10, -30],
+    [-30, -30, 0, 0, 0, 0, -30, -30],
+    [-50, -30, -30, -30, -30, -30, -30, -50],
+  ],
+};
+var pst_b = {
+  p: pst_w['p'].slice().reverse(),
+  n: pst_w['n'].slice().reverse(),
+  b: pst_w['b'].slice().reverse(),
+  r: pst_w['r'].slice().reverse(),
+  q: pst_w['q'].slice().reverse(),
+  k: pst_w['k'].slice().reverse(),
+  k_e: pst_w['k_e'].slice().reverse(),
+};
+
+var pstOpponent = { w: pst_b, b: pst_w };
+var pstSelf = { w: pst_w, b: pst_b };
+
+function evaluateBoard(game, move, prevSum, color) {
+
+  if (game.in_checkmate()) {
+
+    if (move.color === color) {
+      return 10 ** 10;
+    }
+    else {
+      return -(10 ** 10);
+    }
+  }
+
+  if (game.in_draw() || game.in_threefold_repetition() || game.in_stalemate())
+  {
+    return 0;
+  }
+
+  if (game.in_check()) {
+    // Opponent is in check (good for us)
+    if (move.color === color) {
+      prevSum += 50;
+    }
+    // Our king's in check (bad for us)
+    else {
+      prevSum -= 50;
+    }
+  }
+
+  var from = [
+    8 - parseInt(move.from[1]),
+    move.from.charCodeAt(0) - 'a'.charCodeAt(0),
+  ];
+  var to = [
+    8 - parseInt(move.to[1]),
+    move.to.charCodeAt(0) - 'a'.charCodeAt(0),
+  ];
+
+  if (prevSum < -1500) {
+    if (move.piece === 'k') {
+      move.piece = 'k_e';
+    }
+  }
+
+  if ('captured' in move) {
+    // Opponent piece was captured (good for us)
+    if (move.color === color) {
+      prevSum +=
+        weights[move.captured] +
+        pstOpponent[move.color][move.captured][to[0]][to[1]];
+    }
+    // Our piece was captured (bad for us)
+    else {
+      prevSum -=
+        weights[move.captured] +
+        pstSelf[move.color][move.captured][to[0]][to[1]];
+    }
+  }
+
+  if (move.flags.includes('p')) {
+    move.promotion = 'q';
+
+    if (move.color === color) {
+      prevSum -=
+        weights[move.piece] + pstSelf[move.color][move.piece][from[0]][from[1]];
+      prevSum +=
+        weights[move.promotion] +
+        pstSelf[move.color][move.promotion][to[0]][to[1]];
+    }
+    else {
+      prevSum +=
+        weights[move.piece] + pstSelf[move.color][move.piece][from[0]][from[1]];
+      prevSum -=
+        weights[move.promotion] +
+        pstSelf[move.color][move.promotion][to[0]][to[1]];
+    }
+  } else {
+    if (move.color !== color) {
+      prevSum += pstSelf[move.color][move.piece][from[0]][from[1]];
+      prevSum -= pstSelf[move.color][move.piece][to[0]][to[1]];
+    } else {
+      prevSum -= pstSelf[move.color][move.piece][from[0]][from[1]];
+      prevSum += pstSelf[move.color][move.piece][to[0]][to[1]];
+    }
+  }
+
+  return prevSum;
+}
+function getBestMove(game, color, currSum, depth1) {
+  positionCount = 0;
+
+  if (color === 'b') {
+    var depth = parseInt(depth1);
+  } else {
+    var depth = parseInt(depth1);
+  }
+
+  var d = new Date().getTime();
+  var [bestMove, bestMoveValue] = minimax(
+    game,
+    depth,
+    Number.NEGATIVE_INFINITY,
+    Number.POSITIVE_INFINITY,
+    true,
+    currSum,
+    color
+  );
+  var d2 = new Date().getTime();
+  var moveTime = d2 - d;
+  var positionsPerS = (positionCount * 1000) / moveTime;
+
+  return [bestMove, bestMoveValue];
+}
+
+//https://github.com/tsle/chess/blob/master/js/negamax.js
+function negaMax(chess, depth, player) {
+    if (player != chess.turn()) return "";
+    var op = (player == 'b') ? 'w' : 'b';
+    var best_move = null, max = -100000;
+    var moves = chess.moves({ verbose: true });
+    if (moves.length == 0) return null;
+    for(var i=0; i < moves.length; i++) {
+        var curPlayer = (player == 'b') ? 'w' : 'b';
+	if (inHistory(chess, moves[i])) continue;
+	if (!chess.move(moves[i])) continue;
+	score = -negaHelper(chess, depth - 1, curPlayer, op);
+	if (score > max) {
+	    max = score;
+	    best_move = moves[i];
+	}
+	chess.undo();
+    }
+    return best_move;
+}
+
+function negaHelper(chess, depth, curPlayer, player) {
+    if (depth == 0) return negaEval(chess, player);
+    var moves = chess.moves({ verbose: true });
+    var max = -100000;
+    if (moves.length == 0) return max;
+    for (var i=0; i < moves.length; i++) {
+	if (!chess.move(moves[i])) continue;
+	cur_player = (curPlayer == 'b') ? 'w' : 'b';
+	score = -negaHelper(chess, depth - 1, cur_player, player);
+	if ( score > max ) 
+	    max = score;
+	chess.undo();
+    }
+    return max;
+}
+
+function inHistory(chess, move) {
+    var history = chess.history({ verbose: true });
+    var size = history.length;
+    if (size > 5) size = 5;
+    for(var i=0; i < history.length; i++) {
+	if (history[i]['color'] == move['color'] &&
+	    history[i]['from'] == move['from'] && 
+	    history[i]['to'] == move['to'] &&
+	    history[i]['piece'] == move['piece'] &&
+	    move['flags'] == 'n') {
+	    console.log('Repeated');
+	    return true;
+	}
+    }
+    return false;
+}
+
+function eval(chess, player) {
+    var valsW = { "p":1, "r":4, "n":2, "b":3, "q":7, "k":5 };
+    var valsB = { "P":1, "R":4, "N":2, "B":3, "Q":7, "K":5 };
+
+    var score = 0;
+    fen = chess.fen();
+    var i = 0;
+    while(i < fen.length) {
+        if (player == 'w') { // if white                                                         
+	    if (fen.charAt(i) in valsW) {
+                score += valsW[fen.charAt(i)];
+            }
+        } else { // if black                                                                     
+	    if (fen.charAt(i) in valsB) {
+                score += valsB[fen.charAt(i)];
+            }
+        }
+        i++;
+    }
+    return score;
+}
+
+function negaEval(chess, player) {
+    if (player == 'w') {
+        return eval(chess, 'w') - eval(chess, 'b');
+    } else {
+        return eval(chess, 'b') - eval(chess, 'w');
+    }
+}
+
+
+var mixdepth = 4;
+function getBestMove2(depth) {
+  if (martycolor === 'b') {
+    var move1 = getBestMove(game, martycolor, globalSum, depth)[0];
+  } else {
+    var move1 = getBestMove(game, martycolor, -globalSum, depth)[0];
+  }
+
+  var globalSum1 = globalSum;
+
+  globalSum = evaluateBoard(game, move1, globalSum, martycolor);
+  var move1Sum = globalSum;
+  
+  var move2 = negaMax(game, (martycolor == "b" ? 2 : 3), game.turn());
+  globalSum = evaluateBoard(game, move2, globalSum1, martycolor);
+  var move2Sum = globalSum;
+
+  var move;
+  if(move1Sum > move2Sum){
+	var move = move1;
+	console.log('move1. OK!');
+  }else if(move2Sum > move1Sum){
+	//move = move2;
+	console.log('move2. Hmm...');
+	MartySay('Hmm... I don`t know a good move.');
+    depth++;
+	if(depth >= mixdepth+1){
+	  move = move2;
+	  console.log('move2. OK!');
+	}else{
+	  move2 = getBestMove2(depth);
+	  move = move2;
+	}
+  }else{
+	move = move1;
+	console.log('move1 == move2. OK!');
+  }
+
+  return move;
+}
+
+function makeMove () {
+  MartySay('Hmm....');
+  var possibleMoves = game.moves();
+
+  if (possibleMoves.length === 0) return;
+
+  var possibleMoves = game.moves();
+
+  if (game.game_over() === true ||
+    game.in_draw() === true ||
+    possibleMoves.length === 0) return;
+
+  game.move(getBestMove2(3));
+
+  board.position(game.fen());
+  updateStatus();
+}
+
+
+function updateStatus() {
+  if(start_bool == 0){
+    if(martycolor == "b"){
+      game.header('White', $wn.val());
+      game.header('Black', 'MartyBot L3');
+    } else if(martycolor == "w"){
+      game.header('Black', $wn.val());
+      game.header('White', 'MartyBot L3');
+    }
+  }
+  var moveColor = 'White';
+  if (game.turn() === 'b') {
+    moveColor = 'Black';
+  }
+  if (game.in_checkmate()) {
+    status = 'Game over, ' + moveColor + ' is in checkmate.';
+  } else if (game.in_draw()) {
+    status = 'Game over, drawn position';
+  } else {
+    status = moveColor + ' to move';
+    if (game.in_check()) {
+      status += ', ' + moveColor + ' is in check';
+    }
+  }
+  $fen.html(game.fen());
+  $pgn.html(game.pgn());
+}
+  
+function onDrop (source, target) {
+  var move = game.move({
+    from: source,
+    to: target,
+    promotion: 'q'
+  });
+  
+  if (move === null) return 'snapback';
+  window.setTimeout(makeMove, 250);
+}
+
+
+function onSnapEnd () {
+  board.position(game.fen());
+}
+
+function pieceTheme (piece) {
+  if (piece.search(/w/) !== -1) {
+    return 'https://urobot2011.github.io/SaveMartin/MartyBot/chessboardjs/img/chesspieces/wikipedia/' + piece + '.png';
+  }
+  return 'https://urobot2011.github.io/SaveMartin/MartyBot/chessboardjs/img/chesspieces/wikipedia/' + piece + '.png';
+}
+
+var config = {
+  pieceTheme: pieceTheme,
+  draggable: true,
+  position: 'start',
+  onDragStart: onDragStart,
+  onDrop: onDrop,
+  onSnapEnd: onSnapEnd
+};
+board = Chessboard('myBoard', config);
+</script>
+</body>
+</html>
