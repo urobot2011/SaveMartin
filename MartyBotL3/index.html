@@ -547,12 +547,23 @@ function updateStatus() {
   }
   if (game.in_checkmate()) {
     status = 'Game over, ' + moveColor + ' is in checkmate.';
+    if(martycolor == game.turn()){
+	  MartySay('Whoops, I lost. Would you like another round?');
+	} else {
+	  MartySay('Oops, you lost.');
+	}
   } else if (game.in_draw()) {
     status = 'Game over, drawn position';
+	MartySay('Oh, it`s a draw. Would you like another round?');
   } else {
     status = moveColor + ' to move';
     if (game.in_check()) {
       status += ', ' + moveColor + ' is in check';
+	  if(martycolor == game.turn()){
+		MartySay('Hmm, I`ve been checked. Let`s think about it.');
+	  } else {
+	    MartySay('You`ve been checked. i like check!');
+	  }
     }
   }
   $fen.html(game.fen());
