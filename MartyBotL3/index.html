@@ -513,6 +513,7 @@ function getBestMove2(depth) {
 }
 
 function makeMove () {
+  updateStatus();
   MartySay('Hmm....');
   var possibleMoves = game.moves();
 
