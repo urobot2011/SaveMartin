@@ -56,6 +56,26 @@ var start_bool = 0;
 var chassvals = [1, 4, 2, 3, 8, 5];
 //  chassvals = [p, r, n, b, q, k];
 
+var openingData = [
+  ["rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", "d4"],
+  ["rnbqkbnr/pppppppp/8/8/3P4/8/PPP1PPPP/RNBQKBNR b KQkq d3 0 1", "d5"],
+  ["rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1", "e5"],
+];
+
+function checkOpeningData(fen) {
+  var opening;
+  function checkOpeningData_some(element) {
+    if(element[0] == fen) {
+      opening = element[1];
+      return true;
+    }
+  }
+  if(openingData.some(checkOpeningData_some)){
+    return opening;
+  }
+  return false;
+}
+
 $martycolor.change(function(){
   martycolor = $(this).val();
 });
@@ -95,22 +115,31 @@ function onDragStart (source, piece, position, orientation) {
 }
 
 function minimaxCote(depth, game, isMaximisingPlayer) {
+  var newGameMoves = game.moves();
+  var bestMove = -9999;
+  var bestMoveFound;
 
-var newGameMoves = game.moves();
-var bestMove = -9999;
-var bestMoveFound;
-
-for(var i = 0; i < newGameMoves.length; i++) {
-    var newGameMove = newGameMoves[i]
-    game.move(newGameMove);
-    var value = minimax(depth - 1, game, -10000, 10000, !isMaximisingPlayer);
-    game.undo();
-    if(value >= bestMove) {
-        bestMove = value;
-        bestMoveFound = newGameMove;
+  var opening = checkOpeningData(game.fen());
+  if(opening != false){
+    var moveok = 0;
+    for (var i = 0; i < newGameMoves.length; i++) {
+      if(newGameMoves[i] == opening){
+        return opening;
+      }
     }
-}
-return bestMoveFound;
+  }
+
+  for(var i = 0; i < newGameMoves.length; i++) {
+      var newGameMove = newGameMoves[i]
+      game.move(newGameMove);
+      var value = minimax(depth - 1, game, -10000, 10000, !isMaximisingPlayer);
+      game.undo();
+      if(value >= bestMove) {
+          bestMove = value;
+          bestMoveFound = newGameMove;
+      }
+  }
+  return bestMoveFound;
 }
 
 function minimax(depth, game, alpha, beta, isMaximisingPlayer) {
