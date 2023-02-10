@@ -291,10 +291,10 @@ function updateStatus() {
   if(start_bool == 0){
     if(martycolor == "b"){
       game.header('White', $wn.val());
-      game.header('Black', 'MartyBot L3');
+      game.header('Black', 'MartyBot L4');
     } else if(martycolor == "w"){
       game.header('Black', $wn.val());
-      game.header('White', 'MartyBot L3');
+      game.header('White', 'MartyBot L4');
     }
   }
   var moveColor = 'White';
@@ -316,7 +316,7 @@ function updateStatus() {
     if (game.in_check()) {
       status += ', ' + moveColor + ' is in check';
 	  if(martycolor == game.turn()){
-		MartySay('Hmm, I`ve been checked. Let`s think about it.');
+		MartySay('Hmm, I`ve been checked.');
 	  } else {
 	    MartySay('You`ve been checked. i like check!');
 	  }
