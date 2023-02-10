@@ -1,0 +1,363 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MartyBot L4</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://urobot2011.github.io/SaveMartin/MartyBot/chessboardjs/css/chessboard-1.0.0.min.css">
+</head>
+<body>
+<p>
+MartyBot L4
+</p>
+<div id="myBoard" style="width: 400px"></div>
+<div class="card">
+  <div class="card-body">
+    <MartySay></MartySay>
+  </div>
+</div>
+<div class="mb-3">
+  <label for="wn" class="form-label">백 이름</label>
+  <input type="text" class="form-control" id="wn" placeholder="이름(아이디)" value="seoha">
+  <!--<label for="bn" class="form-label">흑 이름</label>
+  <input type="text" class="form-control" id="bn" placeholder="name@example.com">-->
+</div>
+<div class="mb-3">
+<label for="martycolor" class="form-label">봇의 색</label>
+<select class="form-select" aria-label="봇의 색" id = "martycolor">
+  <option selected value="b">흑</option>
+  <option value="w">백</option>
+</select>
+</div>
+<div class="mb-3">
+<button type="button" class="btn btn-primary" id="start">start</button>
+</div>
+<label>FEN:</label>
+<div id="fen"></div>
+<label>PGN:</label>
+<div id="pgn"></div>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://urobot2011.github.io/SaveMartin/MartyBot/chessboardjs/js/chessboard-1.0.0.min.js"></script>
+<script src="https://urobot2011.github.io/SaveMartin/MartyBot/chess/chess.js"></script>
+<script>
+var board;
+var game = new Chess();
+var $start = $('#start');
+var $fen = $('#fen');
+var $pgn = $('#pgn');
+var $wn = $('#wn');
+var $martycolor = $('#martycolor');
+var martycolor = "b";
+var start_bool = 0;
+
+var chassvals = [1, 4, 2, 3, 8, 5];
+//  chassvals = [p, r, n, b, q, k];
+
+$martycolor.change(function(){
+  martycolor = $(this).val();
+});
+
+function MartySay(say) {
+  var $MartySay = $('MartySay');
+  $MartySay.html(say);
+}
+
+MartySay('Hello? I am Marty. Would you like to play with me?');
+
+$start.click(function() {
+  start_bool = 1;
+  game.load("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
+  board.position("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
+  board.orientation('white');
+  $fen.html("");
+  $pgn.html("");
+  if(martycolor == "b"){
+    game.header('White', $wn.val());
+    game.header('Black', 'MartyBot L4');
+  } else if(martycolor == "w"){
+    game.header('Black', $wn.val());
+    game.header('White', 'MartyBot L4');
+  }
+  if(martycolor == "w"){
+    board.position("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
+    board.orientation('black');
+    window.setTimeout(makeMove, 250);
+  }
+  updateStatus();
+});
+
+function onDragStart (source, piece, position, orientation) {
+  if (game.game_over()) return false;
+  if (piece.search(/^{martycolor}/) !== -1) return false;
+}
+
+function minimaxCote(depth, game, isMaximisingPlayer) {
+
+var newGameMoves = game.moves();
+var bestMove = -9999;
+var bestMoveFound;
+
+for(var i = 0; i < newGameMoves.length; i++) {
+    var newGameMove = newGameMoves[i]
+    game.move(newGameMove);
+    var value = minimax(depth - 1, game, -10000, 10000, !isMaximisingPlayer);
+    game.undo();
+    if(value >= bestMove) {
+        bestMove = value;
+        bestMoveFound = newGameMove;
+    }
+}
+return bestMoveFound;
+}
+
+function minimax(depth, game, alpha, beta, isMaximisingPlayer) {
+positionCount++;
+if (depth === 0) {
+    return -evaluateBoard(game.board());
+}
+
+var newGameMoves = game.moves();
+
+if (isMaximisingPlayer) {
+    var bestMove = -9999;
+    for (var i = 0; i < newGameMoves.length; i++) {
+        game.move(newGameMoves[i]);
+        bestMove = Math.max(bestMove, minimax(depth - 1, game, alpha, beta, !isMaximisingPlayer));
+        game.undo();
+        alpha = Math.max(alpha, bestMove);
+        if (beta <= alpha) {
+            return bestMove;
+        }
+    }
+    return bestMove;
+} else {
+    var bestMove = 9999;
+    for (var i = 0; i < newGameMoves.length; i++) {
+        game.move(newGameMoves[i]);
+        bestMove = Math.min(bestMove, minimax(depth - 1, game, alpha, beta, !isMaximisingPlayer));
+        game.undo();
+        beta = Math.min(beta, bestMove);
+        if (beta <= alpha) {
+            return bestMove;
+        }
+    }
+    return bestMove;
+}
+}
+
+function evaluateBoard(board) {
+var totalEvaluation = 0;
+for (var i = 0; i < 8; i++) {
+    for (var j = 0; j < 8; j++) {
+        totalEvaluation = totalEvaluation + getPieceValue(board[i][j], i ,j);
+    }
+}
+return totalEvaluation;
+}
+
+var pawnEvalWhite =
+[
+    [0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0],
+    [5.0,  5.0,  5.0,  5.0,  5.0,  5.0,  5.0,  5.0],
+    [1.0,  1.0,  2.0,  3.0,  3.0,  2.0,  1.0,  1.0],
+    [0.5,  0.5,  1.0,  2.5,  2.5,  1.0,  0.5,  0.5],
+    [0.0,  0.0,  0.0,  2.0,  2.0,  0.0,  0.0,  0.0],
+    [0.5, -0.5, -1.0,  0.0,  0.0, -1.0, -0.5,  0.5],
+    [0.5,  1.0, 1.0,  -2.0, -2.0,  1.0,  1.0,  0.5],
+    [0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0]
+];
+
+var pawnEvalBlack = pawnEvalWhite.slice().reverse();
+
+var knightEval =
+[
+    [-5.0, -4.0, -3.0, -3.0, -3.0, -3.0, -4.0, -5.0],
+    [-4.0, -2.0,  0.0,  0.0,  0.0,  0.0, -2.0, -4.0],
+    [-3.0,  0.0,  1.0,  1.5,  1.5,  1.0,  0.0, -3.0],
+    [-3.0,  0.5,  1.5,  2.0,  2.0,  1.5,  0.5, -3.0],
+    [-3.0,  0.0,  1.5,  2.0,  2.0,  1.5,  0.0, -3.0],
+    [-3.0,  0.5,  1.0,  1.5,  1.5,  1.0,  0.5, -3.0],
+    [-4.0, -2.0,  0.0,  0.5,  0.5,  0.0, -2.0, -4.0],
+    [-5.0, -4.0, -3.0, -3.0, -3.0, -3.0, -4.0, -5.0]
+];
+
+var bishopEvalWhite = [
+[ -2.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -2.0],
+[ -1.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0, -1.0],
+[ -1.0,  0.0,  0.5,  1.0,  1.0,  0.5,  0.0, -1.0],
+[ -1.0,  0.5,  0.5,  1.0,  1.0,  0.5,  0.5, -1.0],
+[ -1.0,  0.0,  1.0,  1.0,  1.0,  1.0,  0.0, -1.0],
+[ -1.0,  1.0,  1.0,  1.0,  1.0,  1.0,  1.0, -1.0],
+[ -1.0,  0.5,  0.0,  0.0,  0.0,  0.0,  0.5, -1.0],
+[ -2.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -2.0]
+];
+
+var bishopEvalBlack = bishopEvalWhite.slice().reverse();
+
+var rookEvalWhite = [
+[  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0],
+[  0.5,  1.0,  1.0,  1.0,  1.0,  1.0,  1.0,  0.5],
+[ -0.5,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0, -0.5],
+[ -0.5,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0, -0.5],
+[ -0.5,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0, -0.5],
+[ -0.5,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0, -0.5],
+[ -0.5,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0, -0.5],
+[  0.0,   0.0, 0.0,  0.5,  0.5,  0.0,  0.0,  0.0]
+];
+
+var rookEvalBlack = rookEvalWhite.slice().reverse();
+
+var evalQueen = [
+[ -2.0, -1.0, -1.0, -0.5, -0.5, -1.0, -1.0, -2.0],
+[ -1.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0, -1.0],
+[ -1.0,  0.0,  0.5,  0.5,  0.5,  0.5,  0.0, -1.0],
+[ -0.5,  0.0,  0.5,  0.5,  0.5,  0.5,  0.0, -0.5],
+[  0.0,  0.0,  0.5,  0.5,  0.5,  0.5,  0.0, -0.5],
+[ -1.0,  0.5,  0.5,  0.5,  0.5,  0.5,  0.0, -1.0],
+[ -1.0,  0.0,  0.5,  0.0,  0.0,  0.0,  0.0, -1.0],
+[ -2.0, -1.0, -1.0, -0.5, -0.5, -1.0, -1.0, -2.0]
+];
+
+var kingEvalWhite = [
+
+[ -3.0, -4.0, -4.0, -5.0, -5.0, -4.0, -4.0, -3.0],
+[ -3.0, -4.0, -4.0, -5.0, -5.0, -4.0, -4.0, -3.0],
+[ -3.0, -4.0, -4.0, -5.0, -5.0, -4.0, -4.0, -3.0],
+[ -3.0, -4.0, -4.0, -5.0, -5.0, -4.0, -4.0, -3.0],
+[ -2.0, -3.0, -3.0, -4.0, -4.0, -3.0, -3.0, -2.0],
+[ -1.0, -2.0, -2.0, -2.0, -2.0, -2.0, -2.0, -1.0],
+[  2.0,  2.0,  0.0,  0.0,  0.0,  0.0,  2.0,  2.0 ],
+[  2.0,  3.0,  1.0,  0.0,  0.0,  1.0,  3.0,  2.0 ]
+];
+
+var kingEvalBlack = kingEvalWhite.slice().reverse();
+
+function getPieceValue(piece, x, y) {
+  if (piece === null) {
+    return 0;
+  }
+  function getAbsoluteValue(piece, isWhite, x ,y) {
+    if (piece.type === 'p') {
+        return 10 + ( isWhite ? pawnEvalWhite[y][x] : pawnEvalBlack[y][x] );
+    } else if (piece.type === 'r') {
+        return 50 + ( isWhite ? rookEvalWhite[y][x] : rookEvalBlack[y][x] );
+    } else if (piece.type === 'n') {
+        return 30 + knightEval[y][x];
+    } else if (piece.type === 'b') {
+        return 30 + ( isWhite ? bishopEvalWhite[y][x] : bishopEvalBlack[y][x] );
+    } else if (piece.type === 'q') {
+        return 90 + evalQueen[y][x];
+    } else if (piece.type === 'k') {
+        return 900 + ( isWhite ? kingEvalWhite[y][x] : kingEvalBlack[y][x] );
+    }
+    throw "Unknown piece type: " + piece.type;
+  }
+  var absoluteValue = getAbsoluteValue(piece, piece.color === 'w', x ,y);
+  return piece.color === 'w' ? absoluteValue : -absoluteValue;
+}
+
+var positionCount;
+function getBestMove(game) {
+    positionCount = 0;
+    var depth = parseInt(3);
+    var bestMove = minimaxCote(depth, game, true);
+    return bestMove;
+}
+
+function makeMove () {
+  updateStatus();
+  //MartySay('Hmm....');
+  var possibleMoves = game.moves();
+
+  if (possibleMoves.length === 0) return;
+
+  var possibleMoves = game.moves();
+
+  if (game.game_over() === true ||
+    game.in_draw() === true ||
+    possibleMoves.length === 0) return;
+  var bestMove = getBestMove(game);
+  game.move(bestMove);
+  board.position(game.fen());
+
+  updateStatus();
+}
+
+
+function updateStatus() {
+  if(start_bool == 0){
+    if(martycolor == "b"){
+      game.header('White', $wn.val());
+      game.header('Black', 'MartyBot L3');
+    } else if(martycolor == "w"){
+      game.header('Black', $wn.val());
+      game.header('White', 'MartyBot L3');
+    }
+  }
+  var moveColor = 'White';
+  if (game.turn() === 'b') {
+    moveColor = 'Black';
+  }
+  if (game.in_checkmate()) {
+    status = 'Game over, ' + moveColor + ' is in checkmate.';
+    if(martycolor == game.turn()){
+	  MartySay('Whoops, I lost. Would you like another round?');
+	} else {
+	  MartySay('Oops, you lost.');
+	}
+  } else if (game.in_draw()) {
+    status = 'Game over, drawn position';
+	MartySay('Oh, it`s a draw. Would you like another round?');
+  } else {
+    status = moveColor + ' to move';
+    if (game.in_check()) {
+      status += ', ' + moveColor + ' is in check';
+	  if(martycolor == game.turn()){
+		MartySay('Hmm, I`ve been checked. Let`s think about it.');
+	  } else {
+	    MartySay('You`ve been checked. i like check!');
+	  }
+    }
+  }
+  $fen.html(game.fen());
+  $pgn.html(game.pgn());
+}
+  
+function onDrop (source, target) {
+  var move = game.move({
+    from: source,
+    to: target,
+    promotion: 'q'
+  });
+  
+  if (move === null) return 'snapback';
+  window.setTimeout(makeMove, 250);
+}
+
+
+function onSnapEnd () {
+  board.position(game.fen());
+}
+
+function pieceTheme (piece) {
+  if (piece.search(/w/) !== -1) {
+    return 'https://urobot2011.github.io/SaveMartin/MartyBot/chessboardjs/img/chesspieces/wikipedia/' + piece + '.png';
+  }
+  return 'https://urobot2011.github.io/SaveMartin/MartyBot/chessboardjs/img/chesspieces/wikipedia/' + piece + '.png';
+}
+
+var config = {
+  pieceTheme: pieceTheme,
+  draggable: true,
+  position: 'start',
+  onDragStart: onDragStart,
+  onDrop: onDrop,
+  onSnapEnd: onSnapEnd
+};
+board = Chessboard('myBoard', config);
+</script>
+</body>
+</html>
