@@ -60,6 +60,8 @@ var openingData = [
   ["rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", "d4"],
   ["rnbqkbnr/pppppppp/8/8/3P4/8/PPP1PPPP/RNBQKBNR b KQkq d3 0 1", "d5"],
   ["rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1", "e5"],
+  ["rnbqkbnr/pppppppp/8/8/8/5P2/PPPPP1PP/RNBQKBNR b KQkq - 0 1", "e6"],//바보 메이트
+  ["rnbqkbnr/pppp1ppp/4p3/8/6P1/5P2/PPPPP2P/RNBQKBNR b KQkq g3 0 2", "Qh4#"],//바보 메이트
 ];
 
 function checkOpeningData(fen) {
@@ -121,7 +123,6 @@ function minimaxCote(depth, game, isMaximisingPlayer) {
 
   var opening = checkOpeningData(game.fen());
   if(opening != false){
-    var moveok = 0;
     for (var i = 0; i < newGameMoves.length; i++) {
       if(newGameMoves[i] == opening){
         return opening;
