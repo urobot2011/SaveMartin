@@ -14,3 +14,5 @@
 [MartyBot 레벨3](https://urobot2011.github.io/SaveMartin/MartyBotL3/ "MartyBot 레벨3")
 
 [MartyBot 레벨4](https://urobot2011.github.io/SaveMartin/MartyBotL4/ "MartyBot 레벨4")
+
+참고로 MartyBot은 chessboardjs와 chess.js와 jQuery로 만들어 졌습니다.
