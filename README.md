@@ -15,4 +15,4 @@
 
 [MartyBot 레벨4](https://urobot2011.github.io/SaveMartin/MartyBotL4/ "MartyBot 레벨4")
 
-참고로 MartyBot은 chessboardjs와 chess.js와 jQuery로 만들어 졌습니다.
+참고로 MartyBot은 chessboardjs와 chess.js와 jQuery로 만들어 졌습니다. [LICENSE](https://github.com/urobot2011/SaveMartin/blob/main/LICENSE "LICENSE")
