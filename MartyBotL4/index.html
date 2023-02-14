@@ -11,7 +11,32 @@
 <p>
 MartyBot L4
 </p>
-<div id="myBoard" style="width: 400px"></div>
+<div class="text-center" style="width: 400px">
+  <div class="row align-items-start">
+    <div class="col">
+      MartyBot L4
+    </div>
+    <div class="col">
+      <!--One of three columns-->
+    </div>
+    <div class="col">
+      <!--One of three columns-->
+    </div>
+    <div class="container">
+      <div id="myBoard" style="width: 100%"></div>
+    </div>
+    <div class="col">
+      <!--One of three columns-->
+    </div>
+    <div class="col">
+      <!--One of three columns-->
+    </div>
+    <div class="col">
+      <!--One of three columns-->
+    </div>
+  </div>
+</div>
+
 <div class="card">
   <div class="card-body">
     <MartySay></MartySay>
@@ -45,6 +70,7 @@ MartyBot L4
 <script>
 var board;
 var game = new Chess();
+var $board = $('#myBoard');
 var $start = $('#start');
 var $fen = $('#fen');
 var $pgn = $('#pgn');
@@ -82,6 +108,10 @@ $martycolor.change(function(){
   martycolor = $(this).val();
 });
 
+$('.square-55d63').each(function (index, item){
+  $(item).attr("style", "width:12.5%;height:12.5%;");
+});	
+
 function MartySay(say) {
   var $MartySay = $('MartySay');
   $MartySay.html(say);
@@ -113,7 +143,7 @@ $start.click(function() {
 
 function onDragStart (source, piece, position, orientation) {
   if (game.game_over()) return false;
-  if (piece.search(/^{martycolor}/) !== -1) return false;
+  if (piece.search(/^${martycolor}/) !== -1) return false;
 }
 
 function minimaxCote(depth, game, isMaximisingPlayer) {
@@ -131,61 +161,61 @@ function minimaxCote(depth, game, isMaximisingPlayer) {
   }
 
   for(var i = 0; i < newGameMoves.length; i++) {
-      var newGameMove = newGameMoves[i]
-      game.move(newGameMove);
-      var value = minimax(depth - 1, game, -10000, 10000, !isMaximisingPlayer);
-      game.undo();
-      if(value >= bestMove) {
-          bestMove = value;
-          bestMoveFound = newGameMove;
-      }
+    var newGameMove = newGameMoves[i]
+    game.move(newGameMove);
+    var value = minimax(depth - 1, game, -10000, 10000, !isMaximisingPlayer);
+    game.undo();
+    if(value >= bestMove) {
+      bestMove = value;
+      bestMoveFound = newGameMove;
+    }
   }
   return bestMoveFound;
 }
 
 function minimax(depth, game, alpha, beta, isMaximisingPlayer) {
-positionCount++;
-if (depth === 0) {
+  positionCount++;
+  if (depth === 0) {
     return -evaluateBoard(game.board());
-}
+  }
 
-var newGameMoves = game.moves();
+  var newGameMoves = game.moves();
 
-if (isMaximisingPlayer) {
+  if (isMaximisingPlayer) {
     var bestMove = -9999;
     for (var i = 0; i < newGameMoves.length; i++) {
-        game.move(newGameMoves[i]);
-        bestMove = Math.max(bestMove, minimax(depth - 1, game, alpha, beta, !isMaximisingPlayer));
-        game.undo();
-        alpha = Math.max(alpha, bestMove);
-        if (beta <= alpha) {
-            return bestMove;
-        }
+      game.move(newGameMoves[i]);
+      bestMove = Math.max(bestMove, minimax(depth - 1, game, alpha, beta, !isMaximisingPlayer));
+      game.undo();
+      alpha = Math.max(alpha, bestMove);
+      if (beta <= alpha) {
+        return bestMove;
+      }
     }
     return bestMove;
-} else {
+  } else {
     var bestMove = 9999;
     for (var i = 0; i < newGameMoves.length; i++) {
-        game.move(newGameMoves[i]);
-        bestMove = Math.min(bestMove, minimax(depth - 1, game, alpha, beta, !isMaximisingPlayer));
-        game.undo();
-        beta = Math.min(beta, bestMove);
-        if (beta <= alpha) {
-            return bestMove;
-        }
+      game.move(newGameMoves[i]);
+      bestMove = Math.min(bestMove, minimax(depth - 1, game, alpha, beta, !isMaximisingPlayer));
+      game.undo();
+      beta = Math.min(beta, bestMove);
+      if (beta <= alpha) {
+        return bestMove;
+      }
     }
     return bestMove;
-}
+  }
 }
 
 function evaluateBoard(board) {
-var totalEvaluation = 0;
-for (var i = 0; i < 8; i++) {
+  var totalEvaluation = 0;
+  for (var i = 0; i < 8; i++) {
     for (var j = 0; j < 8; j++) {
-        totalEvaluation = totalEvaluation + getPieceValue(board[i][j], i ,j);
+      totalEvaluation = totalEvaluation + getPieceValue(board[i][j], i ,j);
     }
-}
-return totalEvaluation;
+  }
+  return totalEvaluation;
 }
 
 var pawnEvalWhite =
@@ -293,13 +323,13 @@ var positionCount;
 function getBestMove(game) {
     positionCount = 0;
     var depth = parseInt(3);
-    var bestMove = minimaxCote(depth, game, true);
+    var bestMove = minimaxCote(depth, game, martycolor == 'b');
     return bestMove;
 }
 
 function makeMove () {
+  MartySay('Hmm....');
   updateStatus();
-  //MartySay('Hmm....');
   var possibleMoves = game.moves();
 
   if (possibleMoves.length === 0) return;
@@ -334,9 +364,9 @@ function updateStatus() {
   if (game.in_checkmate()) {
     status = 'Game over, ' + moveColor + ' is in checkmate.';
     if(martycolor == game.turn()){
-	  MartySay('Whoops, I lost. Would you like another round?');
+	  MartySay('Checkmate! Whoops, I lost. Would you like another round?');
 	} else {
-	  MartySay('Oops, you lost.');
+	  MartySay('Checkmate! Oops, you lost.');
 	}
   } else if (game.in_draw()) {
     status = 'Game over, drawn position';
