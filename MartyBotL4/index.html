@@ -250,7 +250,7 @@ function minimaxCote(depth, game, isMaximisingPlayer) {
 function minimax(depth, game, alpha, beta, isMaximisingPlayer) {
   positionCount++;
   if (depth === 0) {
-    return -evaluateBoard(game.board());
+    return martycolor == 'b' ? -evaluateBoard(game.board()) : evaluateBoard(game.board());
   }
 
   var newGameMoves = game.moves();
