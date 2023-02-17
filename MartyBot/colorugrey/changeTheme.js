@@ -20,7 +20,7 @@ $("colourchange").html(`
         <!--<button type="button" class="btn btn-primary" id="colourchangebtn">change board theme</button>-->
       </div>
 `);
-function boardtheme(){
+$(window).load(function(){
       $("#boardthemeselect").change(function(){
         var selectmenu = $("#boardthemeselect").val();
         var blcsquare1 = document.querySelectorAll(".black-3c85d");
@@ -136,4 +136,4 @@ function boardtheme(){
           }
         }
       });
-}
+});
