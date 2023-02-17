@@ -20,7 +20,7 @@ $("colourchange").html(`
         <!--<button type="button" class="btn btn-primary" id="colourchangebtn">change board theme</button>-->
       </div>
 `);
-$("#colourchangebtn").change(function(){
+$("#boardthemeselect").change(function(){
   var selectmenu = $("#boardthemeselect").val();
   var blcsquare1 = document.querySelectorAll(".black-3c85d");
         var whtsquare1 = document.querySelectorAll(".white-1e1d7");
