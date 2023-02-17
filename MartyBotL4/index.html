@@ -204,6 +204,7 @@ function Martylog(log){
 function minimaxCote(depth, game, isMaximisingPlayer) {
   var newGameMoves = game.moves();
   var bestMove = -9999;//isMaximisingPlayer ? -9999 : 9999;
+  var bestMoveValue = 0;
   var bestMoveFound;
 
   var t1 = Date.now();
@@ -222,7 +223,8 @@ function minimaxCote(depth, game, isMaximisingPlayer) {
   for(var i = 0; i < newGameMoves.length; i++) {
     var t2 = Date.now();
     Martylog("Marty:    "+String(i)+"번째 포지션을 분석합니다.");
-    var newGameMove = newGameMoves[i]
+    var newGameMove = newGameMoves[i];
+    Martylog("Marty:    "+newGameMove+"=> 분석중.....");
     game.move(newGameMove);
     var value = minimax(depth - 1, game, -10000, 10000, !isMaximisingPlayer);
     game.undo();
@@ -230,13 +232,11 @@ function minimaxCote(depth, game, isMaximisingPlayer) {
     if(value >= bestMove) {
       bestMove = value;
       bestMoveFound = newGameMove;
-      /*Martylog("Marty:      이걸로 결정");
-      Martylog("Marty:      "+String(Date.now() - t2)+"ms 걸림");
-      Martylog("Marty:  총 "+String(Date.now() - t1)+"ms 걸림");
-      return bestMoveFound;*/
+      bestMoveValue = i;
     }
     Martylog("Marty:      "+String(Date.now() - t2)+"ms 걸림");
   }
+  Martylog("Marty:  "+bestMoveValue+"번째 포지션("+bestMoveFound+")로 결정");
   Martylog("Marty:  총 "+String(Date.now() - t1)+"ms 걸림");
   if(Date.now() - t1 > 5000){
     Martylog("Marty:  이러면 안되는데..... urobot2011chess님에게 혼날 텐데....");
