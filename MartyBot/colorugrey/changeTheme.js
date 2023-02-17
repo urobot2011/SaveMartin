@@ -17,10 +17,10 @@ $("colourchange").html(`
           <option value="neowood">board theme in texture:neo-wood</option>
           <option value="ivory">board theme in texture:ivory and ebony wood</option>
         </select>
-        <button type="button" class="btn btn-primary" id="colourchangebtn">change board theme</button>
+        <!--<button type="button" class="btn btn-primary" id="colourchangebtn">change board theme</button>-->
       </div>
 `);
-$("#colourchangebtn").click(function () {
+$("#colourchangebtn").change(function(){
   var selectmenu = $("#boardthemeselect").val();
   var blcsquare1 = document.querySelectorAll(".black-3c85d");
         var whtsquare1 = document.querySelectorAll(".white-1e1d7");
