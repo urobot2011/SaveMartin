@@ -287,6 +287,9 @@
     obj[square] = undefined;
     var calc = diagonalSquareCalc(square, move);
     obj[calc] = oldObj;
+    if(parseInt(String(calc).split('')[1]) == 8){
+      obj[calc] = ArrTopieceCode([pieceCodeToArr(obj[calc])[0], 'k']);
+    }
     obj[diagonalSquareCalc(calc, move)] = undefined;
     present_fen = objToFen(obj);
     return 1;
@@ -323,7 +326,11 @@
           var obj = fenToObj(present_fen);
           var oldObj = obj[move_start];
           obj[move_start] = undefined;
-          obj[diagonalSquareCalc(move_start, _positioning)] = oldObj;
+          var calc = diagonalSquareCalc(move_start, _positioning);
+          obj[calc] = oldObj;
+          if(parseInt(String(calc).split('')[1]) == 8){
+            obj[calc] = ArrTopieceCode([pieceCodeToArr(obj[calc])[0], 'k']);
+          }
           present_fen = objToFen(obj);
           present_number++;
           present_turn = oppositeColor(present_turn);
