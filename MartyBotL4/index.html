@@ -264,10 +264,10 @@ function minimaxCote(depth, game, isMaximisingPlayer) {
   Martylog("Marty:  "+bestMoveValue+"번째 포지션("+bestMoveFound+")로 결정");
   Martylog("Marty:  총 "+String(Date.now() - t1)+"ms 걸림");
   if(Date.now() - t1 > 5000){
-    //Martylog("Marty:  이러면 안되는데..... urobot2011chess님에게 혼날 텐데....");
-    //Martylog("urobot2011chess:  잡았다 요놈! 5초 넘으지 말라고했지! 그럼 안된다고 말....(대충 3시간동안 강의)");
+    Martylog("Marty:  이러면 안되는데..... urobot2011chess님에게 혼날 텐데....");
+    Martylog("urobot2011chess:  잡았다 요놈! 5초 넘으지 말라고했지! 그럼 안된다고 말....(대충 3시간동안 강의)");
   } else {
-    //Martylog("urobot2011chess:  잘하고 있군, 마티씨.");
+    Martylog("urobot2011chess:  잘하고 있군, 마티씨.");
   }
   var i = 0;
   for(var Move of newGameMoves){
