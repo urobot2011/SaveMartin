@@ -112,6 +112,10 @@ MartyBot L4
   <label for="Martylog" class="form-label">Martylog</label>
   <textarea class="form-control" id="Martylog" rows="6"></textarea>
 </div>
+<div class="mb-3">
+  <label for="Martylog_AI" class="form-label">Martylog_AI</label>
+  <textarea class="form-control" id="Martylog_AI" rows="6"></textarea>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -202,6 +206,26 @@ function Martylog(log){
   console.log(log);
   $("#Martylog").html($("#Martylog").html()+"\n"+log)
 }
+
+function Martylog_AI(log){
+  console.log("AI: "+log);
+  $("#Martylog_AI").html($("#Martylog_AI").html()+"\n"+log)
+}
+function AIlog(fen, move, is1){
+  Martylog_AI('{');
+  Martylog_AI('input: {');
+  Martylog_AI(' fen: "'+fen+'",');
+  Martylog_AI(' move: "'+move+'"');
+  Martylog_AI('},');
+  Martylog_AI('output: {');
+  if(is1 == 1){
+    Martylog_AI(' 1: 1');
+  } else {
+    Martylog_AI(' 0: 1');
+  }
+  Martylog_AI('},');
+}
+
 function minimaxCote(depth, game, isMaximisingPlayer) {
   var newGameMoves = game.moves();
   var bestMove = -9999;//isMaximisingPlayer ? -9999 : 9999;
@@ -240,10 +264,15 @@ function minimaxCote(depth, game, isMaximisingPlayer) {
   Martylog("Marty:  "+bestMoveValue+"번째 포지션("+bestMoveFound+")로 결정");
   Martylog("Marty:  총 "+String(Date.now() - t1)+"ms 걸림");
   if(Date.now() - t1 > 5000){
-    Martylog("Marty:  이러면 안되는데..... urobot2011chess님에게 혼날 텐데....");
-    Martylog("urobot2011chess:  잡았다 요놈! 5초 넘으지 말라고했지! 그럼 안된다고 말....(대충 3시간동안 강의)");
+    //Martylog("Marty:  이러면 안되는데..... urobot2011chess님에게 혼날 텐데....");
+    //Martylog("urobot2011chess:  잡았다 요놈! 5초 넘으지 말라고했지! 그럼 안된다고 말....(대충 3시간동안 강의)");
   } else {
-    Martylog("urobot2011chess:  잘하고 있군, 마티씨.");
+    //Martylog("urobot2011chess:  잘하고 있군, 마티씨.");
+  }
+  var i = 0;
+  for(var Move of newGameMoves){
+    AIlog(game.fen(), Move, bestMoveValue == i);
+    i++
   }
   return bestMoveFound;
 }
