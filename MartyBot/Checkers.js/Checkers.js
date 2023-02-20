@@ -368,7 +368,7 @@
     }
     return 0;
   }
-  function is_game_over(){
+  function in_game_over(){
     return in_draw() || in_checkmate();
   }
   Checkers.prototype.fenToObj = function (fen) {
