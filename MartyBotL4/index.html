@@ -213,16 +213,17 @@ function Martylog_AI(log){
 }
 function AIlog(fen, move, is1){
   Martylog_AI('{');
-  Martylog_AI('input: {');
-  Martylog_AI(' fen: "'+fen+'",');
-  Martylog_AI(' move: "'+move+'"');
-  Martylog_AI('},');
-  Martylog_AI('output: {');
+  Martylog_AI('	input: {');
+  Martylog_AI(' 	fen: "'+fen+'",');
+  Martylog_AI(' 	move: "'+move+'"');
+  Martylog_AI('	},');
+  Martylog_AI('	output: {');
   if(is1 == 1){
-    Martylog_AI(' 1: 1');
+    Martylog_AI(' 	1: 1');
   } else {
-    Martylog_AI(' 0: 1');
+    Martylog_AI(' 	0: 1');
   }
+  Martylog_AI('	}');
   Martylog_AI('},');
 }
 
