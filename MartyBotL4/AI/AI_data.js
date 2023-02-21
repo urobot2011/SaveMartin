@@ -1,4 +1,4 @@
-var ML5_V1_AI_data = [
+var MartyL5_V1_AI_data = [
 {
 	input: {
  	fen: "rnbqkbnr/ppp1pppp/8/3p4/3P1B2/8/PPP1PPPP/RN1QKBNR b KQkq - 1 2",
