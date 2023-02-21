@@ -178,5 +178,23 @@ var MartyL5_V1_AI_data = [
  output: {
    1: 1
  }
-}
+},
+{
+ input: {
+     fen: "rnbqkbnr/ppp1pppp/8/3p4/3P1B2/8/PPP1PPPP/RN1QKBNR b KQkq - 1 2",
+     move: "Nd7"
+ },
+ output: {
+   0: 1
+ }
+},
+{
+ input: {
+     fen: "rnbqkbnr/ppp1pppp/8/3p4/3P1B2/8/PPP1PPPP/RN1QKBNR b KQkq - 1 2",
+     move: "Nc6"
+ },
+ output: {
+   1: 1
+ }
+},
 ];
