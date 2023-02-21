@@ -1,7 +1,14 @@
 function AIobjSort(obj){
     var Sort = {};
     for(var _obj in obj){
-        Sort[_obj] = parseInt(obj[_obj].replace(/b/g, '1')
+        Sort[parseInt(_obj.replace(/a/g, '1')
+            .replace(/b/g, '2')
+            .replace(/c/g, '3')
+            .replace(/d/g, '4')
+            .replace(/e/g, '5')
+            .replace(/f/g, '6')
+            .replace(/g/g, '7')
+            .replace(/h/g, '8'))] = parseInt(obj[_obj].replace(/b/g, '1')
             .replace(/w/g, '2')
             .replace(/P/g, '1')
             .replace(/N/g, '2')
