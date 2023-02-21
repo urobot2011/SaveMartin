@@ -22,7 +22,7 @@ function DataSort(obj){
             .replace(/e/g, '5')
             .replace(/f/g, '6')
             .replace(/g/g, '7')
-            .replace(/h/g, '8');
+            .replace(/h/g, '8')
     };
 }
 var MartyL5_V1_AI_data = [
