@@ -1,21 +1,21 @@
 function AIobjSort(obj){
     var Sort = {};
     for(var _obj in obj){
-        Sort[_obj] = obj[_obj].replace(/b/g, '0')
-            .replace(/w/g, '1')
+        Sort[_obj] = parseInt(obj[_obj].replace(/b/g, '1')
+            .replace(/w/g, '2')
             .replace(/P/g, '1')
             .replace(/N/g, '2')
             .replace(/B/g, '3')
             .replace(/R/g, '4')
             .replace(/Q/g, '5')
-            .replace(/K/g, '6');
+            .replace(/K/g, '6'));
     }
     return Sort;
 }
 function DataSort(obj){
     return {
         obj: AIobjSort(Chessboard.fenToObj(obj["fen"])),
-        move: obj["move"].replace(/a/g, '1')
+        move: parseInt(obj["move"].replace(/a/g, '1')
             .replace(/b/g, '2')
             .replace(/c/g, '3')
             .replace(/d/g, '4')
@@ -23,6 +23,13 @@ function DataSort(obj){
             .replace(/f/g, '6')
             .replace(/g/g, '7')
             .replace(/h/g, '8')
+            .replace(/x/g, '9')
+            .replace(/P/g, '1')
+            .replace(/N/g, '2')
+            .replace(/B/g, '3')
+            .replace(/R/g, '4')
+            .replace(/Q/g, '5')
+            .replace(/K/g, '6'))
     };
 }
 var MartyL5_V1_AI_data = [
