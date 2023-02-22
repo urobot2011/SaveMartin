@@ -1,0 +1,973 @@
+
+{
+	input: DataSort({
+ 	fen: "rnbqkbnr/ppp1pppp/8/3p4/3P1B2/8/PPP1PPPP/RN1QKBNR b KQkq - 1 2",
+ 	move: "Nd7"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "rnbqkbnr/ppp1pppp/8/3p4/3P1B2/8/PPP1PPPP/RN1QKBNR b KQkq - 1 2",
+ 	move: "Nc6"
+	}),
+	output: {
+ 	1: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "rnbqkbnr/ppp1pppp/8/3p4/3P1B2/8/PPP1PPPP/RN1QKBNR b KQkq - 1 2",
+ 	move: "Na6"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "r1bqkbnr/ppp1pppp/2n5/3p4/3P1B2/5N2/PPP1PPPP/RN1QKB1R b KQkq - 3 3",
+ 	move: "Rb8"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "r1bqkbnr/ppp1pppp/2n5/3p4/3P1B2/5N2/PPP1PPPP/RN1QKB1R b KQkq - 3 3",
+ 	move: "Bg4"
+	}),
+	output: {
+ 	1: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "r1bqkbnr/ppp1pppp/2n5/3p4/3P1B2/5N2/PPP1PPPP/RN1QKB1R b KQkq - 3 3",
+ 	move: "Bh3"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "r2qkbnr/ppp1pppp/2n5/3p4/3P1Bb1/5N1P/PPP1PPP1/RN1QKB1R b KQkq - 0 4",
+ 	move: "Rb8"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "r2qkbnr/ppp1pppp/2n5/3p4/3P1Bb1/5N1P/PPP1PPP1/RN1QKB1R b KQkq - 0 4",
+ 	move: "Bxf3"
+	}),
+	output: {
+ 	1: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "r2qkbnr/ppp1pppp/2n5/3p4/3P1B2/5P1P/PPP2PP1/RN1QKB1R b KQkq - 0 5",
+ 	move: "Rb8"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "r2qkbnr/ppp1pppp/2n5/3p4/3P1B2/5P1P/PPP2PP1/RN1QKB1R b KQkq - 0 5",
+ 	move: "Qc8"
+	}),
+	output: {
+ 	1: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "r2qkbnr/ppp1pppp/2n5/3p4/3P1B2/5P1P/PPP2PP1/RN1QKB1R b KQkq - 0 5",
+ 	move: "Qb8"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "r1q1kbnr/ppp1pppp/2n5/3p4/3P1B2/2P2P1P/PP3PP1/RN1QKB1R b KQkq - 0 6",
+ 	move: "Rb8"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "r1q1kbnr/ppp1pppp/2n5/3p4/3P1B2/2P2P1P/PP3PP1/RN1QKB1R b KQkq - 0 6",
+ 	move: "Qe6+"
+	}),
+	output: {
+ 	1: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "r1q1kbnr/ppp1pppp/2n5/3p4/3P1B2/2P2P1P/PP3PP1/RN1QKB1R b KQkq - 0 6",
+ 	move: "Qf5"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "r3kbnr/ppp1pppp/2n1q3/3p4/3P1B2/2P2P1P/PP2BPP1/RN1QK2R b KQkq - 2 7",
+ 	move: "Rb8"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "r3kbnr/ppp1pppp/2n1q3/3p4/3P1B2/2P2P1P/PP2BPP1/RN1QK2R b KQkq - 2 7",
+ 	move: "Nf6"
+	}),
+	output: {
+ 	1: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "r3kbnr/ppp1pppp/2n1q3/3p4/3P1B2/2P2P1P/PP2BPP1/RN1QK2R b KQkq - 2 7",
+ 	move: "a6"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "r3kb1r/ppp1pppp/2n1qn2/3p4/3P1B2/2P2P1P/PP2BPP1/RN1Q1RK1 b kq - 4 8",
+ 	move: "Rb8"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "r3kb1r/ppp1pppp/2n1qn2/3p4/3P1B2/2P2P1P/PP2BPP1/RN1Q1RK1 b kq - 4 8",
+ 	move: "O-O-O"
+	}),
+	output: {
+ 	1: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "2kr1b1r/ppp1pppp/2n1qn2/3p4/3P1B2/2P2P1P/PP2BPP1/RN1QR1K1 b - - 6 9",
+ 	move: "Kd7"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "2kr1b1r/ppp1pppp/2n1qn2/3p4/3P1B2/2P2P1P/PP2BPP1/RN1QR1K1 b - - 6 9",
+ 	move: "Qf5"
+	}),
+	output: {
+ 	1: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "2kr1b1r/ppp1pppp/2n1qn2/3p4/3P1B2/2P2P1P/PP2BPP1/RN1QR1K1 b - - 6 9",
+ 	move: "Qg4"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "2kr1b1r/ppp1pppp/2n2n2/3p1q2/3P4/2P1BP1P/PP2BPP1/RN1QR1K1 b - - 8 10",
+ 	move: "Kd7"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "2kr1b1r/ppp1pppp/2n2n2/3p1q2/3P4/2P1BP1P/PP2BPP1/RN1QR1K1 b - - 8 10",
+ 	move: "Kb8"
+	}),
+	output: {
+ 	1: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "2kr1b1r/ppp1pppp/2n2n2/3p1q2/3P4/2P1BP1P/PP2BPP1/RN1QR1K1 b - - 8 10",
+ 	move: "Re8"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "1k1r1b1r/ppp1pppp/2n2n2/3p1q2/3P2P1/2P1BP1P/PP2BP2/RN1QR1K1 b - g3 0 11",
+ 	move: "Kc8"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "1k1r1b1r/ppp1pppp/2n2n2/3p1q2/3P2P1/2P1BP1P/PP2BP2/RN1QR1K1 b - g3 0 11",
+ 	move: "Qe6"
+	}),
+	output: {
+ 	1: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "1k1r1b1r/ppp1pppp/2n2n2/3p1q2/3P2P1/2P1BP1P/PP2BP2/RN1QR1K1 b - g3 0 11",
+ 	move: "Qd7"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "1k1r1b1r/ppp1pppp/2n1qn2/3p4/3P2P1/N1P1BP1P/PP2BP2/R2QR1K1 b - - 2 12",
+ 	move: "Kc8"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "1k1r1b1r/ppp1pppp/2n1qn2/3p4/3P2P1/N1P1BP1P/PP2BP2/R2QR1K1 b - - 2 12",
+ 	move: "Rd6"
+	}),
+	output: {
+ 	1: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "1k1r1b1r/ppp1pppp/2n1qn2/3p4/3P2P1/N1P1BP1P/PP2BP2/R2QR1K1 b - - 2 12",
+ 	move: "Rc8"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "1k3b1r/ppp1pppp/2nrqn2/1N1p4/3P2P1/2P1BP1P/PP2BP2/R2QR1K1 b - - 4 13",
+ 	move: "Kc8"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "1k3b1r/ppp1pppp/2nrqn2/1N1p4/3P2P1/2P1BP1P/PP2BP2/R2QR1K1 b - - 4 13",
+ 	move: "Rd8"
+	}),
+	output: {
+ 	1: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "1k3b1r/ppp1pppp/2nrqn2/1N1p4/3P2P1/2P1BP1P/PP2BP2/R2QR1K1 b - - 4 13",
+ 	move: "Qd7"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "1k1r1b1r/ppp1pppp/2n1qn2/1N1p4/3P1BP1/2P2P1P/PP2BP2/R2QR1K1 b - - 6 14",
+ 	move: "Kc8"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "1k1r1b1r/ppp1pppp/2n1qn2/1N1p4/3P1BP1/2P2P1P/PP2BP2/R2QR1K1 b - - 6 14",
+ 	move: "Ne8"
+	}),
+	output: {
+ 	1: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "1k1r1b1r/ppp1pppp/2n1qn2/1N1p4/3P1BP1/2P2P1P/PP2BP2/R2QR1K1 b - - 6 14",
+ 	move: "Ng8"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "1k1rnb1r/ppp1pppp/2n1q3/1N1p4/3P1BP1/2PQ1P1P/PP2BP2/R3R1K1 b - - 8 15",
+ 	move: "Kc8"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "1k1rnb1r/ppp1pppp/2n1q3/1N1p4/3P1BP1/2PQ1P1P/PP2BP2/R3R1K1 b - - 8 15",
+ 	move: "f6"
+	}),
+	output: {
+ 	1: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "1k1rnb1r/ppp1pppp/2n1q3/1N1p4/3P1BP1/2PQ1P1P/PP2BP2/R3R1K1 b - - 8 15",
+ 	move: "f5"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "1k1rnb1r/ppp1p1pp/2n1qp2/1N1p1Q2/3P1BP1/2P2P1P/PP2BP2/R3R1K1 b - - 1 16",
+ 	move: "Kc8"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "1k1rnb1r/ppp1p1pp/2n1qp2/1N1p1Q2/3P1BP1/2P2P1P/PP2BP2/R3R1K1 b - - 1 16",
+ 	move: "Qxf5"
+	}),
+	output: {
+ 	1: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "1k1rnb1r/ppp1p1pp/2n1qp2/1N1p1Q2/3P1BP1/2P2P1P/PP2BP2/R3R1K1 b - - 1 16",
+ 	move: "Qe5"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "1k1rnb1r/ppp1p1pp/2n2p2/1N1p1P2/3P1B2/2P2P1P/PP2BP2/R3R1K1 b - - 0 17",
+ 	move: "Kc8"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "1k1rnb1r/ppp1p1pp/2n2p2/1N1p1P2/3P1B2/2P2P1P/PP2BP2/R3R1K1 b - - 0 17",
+ 	move: "a6"
+	}),
+	output: {
+ 	1: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "1k1rnb1r/ppp1p1pp/2n2p2/1N1p1P2/3P1B2/2P2P1P/PP2BP2/R3R1K1 b - - 0 17",
+ 	move: "a5"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "1k1rnb1r/1pp1p1pp/p1n2p2/3p1P2/3P1B2/N1P2P1P/PP2BP2/R3R1K1 b - - 1 18",
+ 	move: "Kc8"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "1k1rnb1r/1pp1p1pp/p1n2p2/3p1P2/3P1B2/N1P2P1P/PP2BP2/R3R1K1 b - - 1 18",
+ 	move: "Nd6"
+	}),
+	output: {
+ 	1: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "1k1rnb1r/1pp1p1pp/p1n2p2/3p1P2/3P1B2/N1P2P1P/PP2BP2/R3R1K1 b - - 1 18",
+ 	move: "Rg8"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "1k1r1b1r/1pp1p1pp/p1nn1p2/3p1P2/3P1B2/N1PB1P1P/PP3P2/R3R1K1 b - - 3 19",
+ 	move: "Kc8"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "1k1r1b1r/1pp1p1pp/p1nn1p2/3p1P2/3P1B2/N1PB1P1P/PP3P2/R3R1K1 b - - 3 19",
+ 	move: "Nf7"
+	}),
+	output: {
+ 	1: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "1k1r1b1r/1pp1p1pp/p1nn1p2/3p1P2/3P1B2/N1PB1P1P/PP3P2/R3R1K1 b - - 3 19",
+ 	move: "Nxf5"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "1k1r1b1r/1pp1pnpp/p1n2p2/3p1P2/3P1B1P/N1PB1P2/PP3P2/R3R1K1 b - - 0 20",
+ 	move: "Kc8"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "1k1r1b1r/1pp1pnpp/p1n2p2/3p1P2/3P1B1P/N1PB1P2/PP3P2/R3R1K1 b - - 0 20",
+ 	move: "e5"
+	}),
+	output: {
+ 	1: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "1k1r1b1r/1pp1pnpp/p1n2p2/3p1P2/3P1B1P/N1PB1P2/PP3P2/R3R1K1 b - - 0 20",
+ 	move: "Nh6"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "1k1r1b1r/1pp2npp/p1n2p2/3pPP2/5B1P/N1PB1P2/PP3P2/R3R1K1 b - - 0 21",
+ 	move: "Kc8"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "1k1r1b1r/1pp2npp/p1n2p2/3pPP2/5B1P/N1PB1P2/PP3P2/R3R1K1 b - - 0 21",
+ 	move: "fxe5"
+	}),
+	output: {
+ 	1: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "1k1r1b1r/1pp2npp/p1n2p2/3pPP2/5B1P/N1PB1P2/PP3P2/R3R1K1 b - - 0 21",
+ 	move: "d4"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "1k1r1b1r/1pp2npp/p1n5/3ppP2/7P/N1PB1PB1/PP3P2/R3R1K1 b - - 1 22",
+ 	move: "Kc8"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "1k1r1b1r/1pp2npp/p1n5/3ppP2/7P/N1PB1PB1/PP3P2/R3R1K1 b - - 1 22",
+ 	move: "Bxa3"
+	}),
+	output: {
+ 	1: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "1k1r1b1r/1pp2npp/p1n5/3ppP2/7P/N1PB1PB1/PP3P2/R3R1K1 b - - 1 22",
+ 	move: "Rg8"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "1k1r3r/1pp2npp/p1n5/3ppP2/7P/P1PB1PB1/P4P2/R3R1K1 b - - 0 23",
+ 	move: "Kc8"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "1k1r3r/1pp2npp/p1n5/3ppP2/7P/P1PB1PB1/P4P2/R3R1K1 b - - 0 23",
+ 	move: "Rdg8"
+	}),
+	output: {
+ 	1: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "1k1r3r/1pp2npp/p1n5/3ppP2/7P/P1PB1PB1/P4P2/R3R1K1 b - - 0 23",
+ 	move: "Rd7"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "1k4rr/1pp2npp/p1n5/3ppP2/7P/P1PB1PB1/P4P2/1R2R1K1 b - - 2 24",
+ 	move: "Kc8"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "1k4rr/1pp2npp/p1n5/3ppP2/7P/P1PB1PB1/P4P2/1R2R1K1 b - - 2 24",
+ 	move: "Ka7"
+	}),
+	output: {
+ 	1: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "1k4rr/1pp2npp/p1n5/3ppP2/7P/P1PB1PB1/P4P2/1R2R1K1 b - - 2 24",
+ 	move: "Ka8"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "6rr/kpp2npp/p1n5/3ppP2/P6P/2PB1PB1/P4P2/1R2R1K1 b - - 0 25",
+ 	move: "Rf8"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "6rr/kpp2npp/p1n5/3ppP2/P6P/2PB1PB1/P4P2/1R2R1K1 b - - 0 25",
+ 	move: "h5"
+	}),
+	output: {
+ 	1: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "6rr/kpp2npp/p1n5/3ppP2/P6P/2PB1PB1/P4P2/1R2R1K1 b - - 0 25",
+ 	move: "a5"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "6rr/kpp2np1/p1n5/3ppP1p/P6P/2PB1PB1/P4PK1/1R2R3 b - - 1 26",
+ 	move: "Rf8"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "6rr/kpp2np1/p1n5/3ppP1p/P6P/2PB1PB1/P4PK1/1R2R3 b - - 1 26",
+ 	move: "Nd6"
+	}),
+	output: {
+ 	1: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "6rr/kpp2np1/p1n5/3ppP1p/P6P/2PB1PB1/P4PK1/1R2R3 b - - 1 26",
+ 	move: "g6"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "6rr/kpp3p1/p1nn4/3ppP1p/P6P/2PB1PB1/P4PK1/1R5R b - - 3 27",
+ 	move: "Rf8"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "6rr/kpp3p1/p1nn4/3ppP1p/P6P/2PB1PB1/P4PK1/1R5R b - - 3 27",
+ 	move: "d4"
+	}),
+	output: {
+ 	1: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "6rr/kpp3p1/p1nn4/3ppP1p/P6P/2PB1PB1/P4PK1/1R5R b - - 3 27",
+ 	move: "e4"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "6rr/kpp3p1/p1nn4/4pP1p/P2p1P1P/2PB2B1/P4PK1/1R5R b - - 0 28",
+ 	move: "Rf8"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "6rr/kpp3p1/p1nn4/4pP1p/P2p1P1P/2PB2B1/P4PK1/1R5R b - - 0 28",
+ 	move: "e4"
+	}),
+	output: {
+ 	1: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "6rr/kpp3p1/p1nn4/4pP1p/P2p1P1P/2PB2B1/P4PK1/1R5R b - - 0 28",
+ 	move: "exf4"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "6rr/kpp3p1/p1nn4/5P1p/P2ppP1P/2P3B1/P1B2PK1/1R5R b - - 1 29",
+ 	move: "Rf8"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "6rr/kpp3p1/p1nn4/5P1p/P2ppP1P/2P3B1/P1B2PK1/1R5R b - - 1 29",
+ 	move: "dxc3"
+	}),
+	output: {
+ 	1: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "6rr/kpp3p1/p1nn4/5P1p/P2ppP1P/2P3B1/P1B2PK1/1R5R b - - 1 29",
+ 	move: "e3"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "6rr/kpp3p1/p1nn4/5P1p/P3pP1P/2p3B1/P1B2P2/1R3K1R b - - 1 30",
+ 	move: "Rf8"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "6rr/kpp3p1/p1nn4/5P1p/P3pP1P/2p3B1/P1B2P2/1R3K1R b - - 1 30",
+ 	move: "Nd4"
+	}),
+	output: {
+ 	1: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "6rr/kpp3p1/p1nn4/5P1p/P3pP1P/2p3B1/P1B2P2/1R3K1R b - - 1 30",
+ 	move: "Nb4"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "6rr/kpp3p1/p2n4/5P1p/P2npP1P/2p3B1/P4P2/1R1B1K1R b - - 3 31",
+ 	move: "Rf8"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "6rr/kpp3p1/p2n4/5P1p/P2npP1P/2p3B1/P4P2/1R1B1K1R b - - 3 31",
+ 	move: "c2"
+	}),
+	output: {
+ 	1: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "6rr/kpp3p1/p2n4/5P1p/P2npP1P/6B1/P1B2P2/1R3K1R b - - 0 32",
+ 	move: "Rf8"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "6rr/kpp3p1/p2n4/5P1p/P2npP1P/6B1/P1B2P2/1R3K1R b - - 0 32",
+ 	move: "Nxc2"
+	}),
+	output: {
+ 	1: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "6rr/kpp3p1/p2n4/5P1p/P2npP1P/6B1/P1B2P2/1R3K1R b - - 0 32",
+ 	move: "Nb3"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "6rr/kpp3p1/p2n4/5P1p/P3pP1P/6B1/P1n2P2/2R2K1R b - - 1 33",
+ 	move: "Rf8"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "6rr/kpp3p1/p2n4/5P1p/P3pP1P/6B1/P1n2P2/2R2K1R b - - 1 33",
+ 	move: "Nb4"
+	}),
+	output: {
+ 	1: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "6rr/kpp3p1/p2n4/5P1p/P3pP1P/6B1/P1n2P2/2R2K1R b - - 1 33",
+ 	move: "Nd4"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "6rr/kpR3p1/p2n4/5P1p/Pn2pP1P/6B1/P4P2/5K1R b - - 0 34",
+ 	move: "Rf8"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "6rr/kpR3p1/p2n4/5P1p/Pn2pP1P/6B1/P4P2/5K1R b - - 0 34",
+ 	move: "Nxf5"
+	}),
+	output: {
+ 	1: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "6rr/kpR3p1/p2n4/5P1p/Pn2pP1P/6B1/P4P2/5K1R b - - 0 34",
+ 	move: "Nc4"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "6rr/kpR3p1/p7/5n1p/Pn2pP1P/8/P4P1B/5K1R b - - 1 35",
+ 	move: "Rf8"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "6rr/kpR3p1/p7/5n1p/Pn2pP1P/8/P4P1B/5K1R b - - 1 35",
+ 	move: "Rc8"
+	}),
+	output: {
+ 	1: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "6rr/kpR3p1/p7/5n1p/Pn2pP1P/8/P4P1B/5K1R b - - 1 35",
+ 	move: "Rb8"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "2r4r/kp3Rp1/p7/5n1p/Pn2pP1P/8/P4P1B/5K1R b - - 3 36",
+ 	move: "Rcd8"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "2r4r/kp3Rp1/p7/5n1p/Pn2pP1P/8/P4P1B/5K1R b - - 3 36",
+ 	move: "Rc1+"
+	}),
+	output: {
+ 	1: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "2r4r/kp3Rp1/p7/5n1p/Pn2pP1P/8/P4P1B/5K1R b - - 3 36",
+ 	move: "Rb8"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "7r/kp3Rp1/p7/5n1p/Pn2pP1P/8/P3KP1B/2r4R b - - 5 37",
+ 	move: "Rh7"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "7r/kp3Rp1/p7/5n1p/Pn2pP1P/8/P3KP1B/2r4R b - - 5 37",
+ 	move: "Rxh1"
+	}),
+	output: {
+ 	1: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "7r/kp3Rp1/p7/5n1p/Pn2pP1P/8/P3KP1B/2r4R b - - 5 37",
+ 	move: "Rb1"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "7r/kp4p1/p7/5R1p/Pn2pP1P/8/P3KP1B/7r b - - 0 38",
+ 	move: "Rh7"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "7r/kp4p1/p7/5R1p/Pn2pP1P/8/P3KP1B/7r b - - 0 38",
+ 	move: "Rxh2"
+	}),
+	output: {
+ 	1: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "7r/kp4p1/p7/5R1p/Pn2pP1P/8/P3KP1B/7r b - - 0 38",
+ 	move: "Rg1"
+	}),
+	output: {
+ 	0: 1
+	}
+},
