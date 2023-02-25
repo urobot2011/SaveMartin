@@ -276,12 +276,20 @@ function minimaxCote(depth, game, isMaximisingPlayer) {
     if(ok == (bestMoveValue == i ? 1 : 0)){
       AIlog(game.fen(), Move, bestMoveValue == i);
       if(ok == 1){
-	ok = -1;
+	if(bestMoveValue == 0){
+	  ok = (bestMoveValue == i ? 0 : 1);
+	} else {
+	  ok = -1;
+	}
       } else {
-        ok = (bestMoveValue == i ? 0 : 1);
+	if(bestMoveValue == 0){
+	  ok = -1;
+	} else {
+	  ok = (bestMoveValue == i ? 0 : 1);
+	}
       }
     }
-    i++
+    i++;
   }
   return bestMoveFound;
 }
