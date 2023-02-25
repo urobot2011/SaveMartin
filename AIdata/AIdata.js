@@ -1365,5 +1365,149 @@ var MartyL5_V1_AI_data = [
 	output: {
  	1: 1
 	}
-}
+},
+{
+	input: DataSort({
+ 	fen: "rnbqkbnr/ppp1pppp/8/3p4/3P1B2/8/PPP1PPPP/RN1QKBNR b KQkq - 1 2",
+ 	move: "Nd7"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "rnbqkbnr/ppp1pppp/8/3p4/3P1B2/8/PPP1PPPP/RN1QKBNR b KQkq - 1 2",
+ 	move: "Nc6"
+	}),
+	output: {
+ 	1: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "r1bqkbnr/ppp1pppp/2n5/3p4/3P1B2/2N5/PPP1PPPP/R2QKBNR b KQkq - 3 3",
+ 	move: "Rb8"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "r1bqkbnr/ppp1pppp/2n5/3p4/3P1B2/2N5/PPP1PPPP/R2QKBNR b KQkq - 3 3",
+ 	move: "f5"
+	}),
+	output: {
+ 	1: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "r1bqkbnr/ppp1p1pp/2n5/1N1p1p2/3P1B2/8/PPP1PPPP/R2QKBNR b KQkq - 1 4",
+ 	move: "Rb8"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "r1bqkbnr/ppp1p1pp/2n5/1N1p1p2/3P1B2/8/PPP1PPPP/R2QKBNR b KQkq - 1 4",
+ 	move: "e5"
+	}),
+	output: {
+ 	1: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "r1bqkbnr/ppp3pp/2n5/1N1pPp2/5B2/8/PPP1PPPP/R2QKBNR b KQkq - 0 5",
+ 	move: "Rb8"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "r1bqkbnr/ppp3pp/2n5/1N1pPp2/5B2/8/PPP1PPPP/R2QKBNR b KQkq - 0 5",
+ 	move: "g5"
+	}),
+	output: {
+ 	1: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "r1bqkbnr/ppp4p/2n5/1N1pPpB1/8/8/PPP1PPPP/R2QKBNR b KQkq - 0 6",
+ 	move: "Rb8"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "r1bqkbnr/ppp4p/2n5/1N1pPpB1/8/8/PPP1PPPP/R2QKBNR b KQkq - 0 6",
+ 	move: "Bb4+"
+	}),
+	output: {
+ 	1: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "r1bqk1nr/ppp4p/2n5/1N1pPpB1/1b6/2P5/PP2PPPP/R2QKBNR b KQkq - 0 7",
+ 	move: "Rb8"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "r1bqk1nr/ppp4p/2n5/1N1pPpB1/1b6/2P5/PP2PPPP/R2QKBNR b KQkq - 0 7",
+ 	move: "Bxc3+"
+	}),
+	output: {
+ 	1: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "r1bqk1nr/ppp4p/2n5/1N1pPpB1/8/2P5/P3PPPP/R2QKBNR b KQkq - 0 8",
+ 	move: "Rb8"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "r1bqk1nr/ppp4p/2n5/1N1pPpB1/8/2P5/P3PPPP/R2QKBNR b KQkq - 0 8",
+ 	move: "Qd7"
+	}),
+	output: {
+ 	1: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "r1bBk1nr/pppq3p/2n5/1N1pPp2/8/2P5/P3PPPP/R2QKBNR b KQkq - 2 9",
+ 	move: "Rb8"
+	}),
+	output: {
+ 	0: 1
+	}
+},
+{
+	input: DataSort({
+ 	fen: "r1bBk1nr/pppq3p/2n5/1N1pPp2/8/2P5/P3PPPP/R2QKBNR b KQkq - 2 9",
+ 	move: "Kxd8"
+	}),
+	output: {
+ 	1: 1
+	}
+},
 ];
