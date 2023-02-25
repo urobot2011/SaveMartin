@@ -1405,15 +1405,6 @@ var MartyL5_V1_AI_data = [
 {
 	input: DataSort({
  	fen: "r1bqkbnr/ppp1p1pp/2n5/1N1p1p2/3P1B2/8/PPP1PPPP/R2QKBNR b KQkq - 1 4",
- 	move: "Rb8"
-	}),
-	output: {
- 	0: 1
-	}
-},
-{
-	input: DataSort({
- 	fen: "r1bqkbnr/ppp1p1pp/2n5/1N1p1p2/3P1B2/8/PPP1PPPP/R2QKBNR b KQkq - 1 4",
  	move: "e5"
 	}),
 	output: {
