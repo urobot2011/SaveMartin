@@ -270,9 +270,17 @@ function minimaxCote(depth, game, isMaximisingPlayer) {
   } else {
     Martylog("urobot2011chess:  잘하고 있군, 마티씨.");
   }
+  var ok = 0;
   var i = 0;
   for(var Move of newGameMoves){
-    AIlog(game.fen(), Move, bestMoveValue == i);
+    if(ok == (bestMoveValue == i ? 1 : 0)){
+      AIlog(game.fen(), Move, bestMoveValue == i);
+      if(ok == 1){
+	ok = -1;
+      } else {
+        ok = (bestMoveValue == i ? 0 : 1);
+      }
+    }
     i++
   }
   return bestMoveFound;
