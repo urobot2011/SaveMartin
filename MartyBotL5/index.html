@@ -133,7 +133,7 @@ MartyBot L5
   <label for="Martylog" class="form-label">Martylog</label>
   <textarea class="form-control" id="Martylog" rows="6"></textarea>
 </div>
-<div class="mb-3"><!--</div> style="display: none;">-->
+<div class="mb-3"><!-- style="display: none;">-->
   <label for="Martylog_AI" class="form-label">Martylog_AI</label>
   <textarea class="form-control" id="Martylog_AI" rows="6"></textarea>
 </div>
@@ -159,6 +159,7 @@ var $martycolor = $('#martycolor');
 var martycolor = "b";
 //var ECOopening = "opening: opening";
 var start_bool = 0;
+var currentScore = 0;
 
 var chessprogressval = 0;
 
@@ -383,7 +384,14 @@ function evaluateBoard(board, totalEvaluation = 0) {
     }
   }
   if(game.in_checkmate()){
-    totalEvaluation = martycolor == game.turn() ? 10*10 : -10*10;
+    totalEvaluation = martycolor == game.turn() ? 10**10 : -10**10;
+  }
+  if(game.in_draw()){
+    if(currentScore > 3){
+      totalEvaluation = -10*10;
+    } else if(currentScore < 3){
+      totalEvaluation = 10*10;
+    }
   }
   return totalEvaluation;
 }
@@ -552,7 +560,7 @@ async function updateStatus() {
     if (game.in_check()) {
       status += ', ' + moveColor + ' is in check';
 	  if(martycolor == game.turn()){
-		MartySay('Hmm, I`ve been checked.');
+	    MartySay('Hmm, I`ve been checked.');
 	  } else {
 	    MartySay('You`ve been checked. i like check!');
 	  }
@@ -561,8 +569,9 @@ async function updateStatus() {
   $fen.html(game.fen());
   $pgn.html(game.pgn());
   //$ECOopening.html(ECOopening);
+  currentScore = evaluateBoard(game.board());
   var $chessprogressbar = $("#chessprogressbar");
-  $chessprogressbar.attr("progress", 100-(49+evaluateBoard(game.board())));
+  $chessprogressbar.attr("progress", 100-(49+currentScore));
   chessprogressbar();
 }
   
