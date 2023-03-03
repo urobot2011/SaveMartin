@@ -384,13 +384,13 @@ function evaluateBoard(board, totalEvaluation = 0) {
     }
   }
   if(game.in_checkmate()){
-    totalEvaluation = martycolor == game.turn() ? 10**10 : -10**10;
+    totalEvaluation = (martycolor == game.turn()) ? (10**10) : (-10**10);
   }
   if(game.in_draw()){
     if(currentScore > 3){
-      totalEvaluation = -10*10;
+      totalEvaluation = -8;
     } else if(currentScore < 3){
-      totalEvaluation = 10*10;
+      totalEvaluation = 8;
     }
   }
   return totalEvaluation;
