@@ -377,15 +377,14 @@ function minimax(depth, game, alpha, beta, isMaximisingPlayer) {
   }
 }
 
-function evaluateBoard(board) {
-  var totalEvaluation = 0;
+function evaluateBoard(board, totalEvaluation = -) {
   for (var i = 0; i < 8; i++) {
     for (var j = 0; j < 8; j++) {
       totalEvaluation = totalEvaluation + getPieceValue(board[i][j], i ,j);
     }
   }
   if(game.in_checkmate()){
-    totalEvaluation = (martycolor == game.turn()) ? (10**10) : (-10**10);
+    totalEvaluation = (martycolor == game.turn()) ? (10*10) : (-10*10);
   }
   if(game.in_draw()){
     if(currentScore > 3){
